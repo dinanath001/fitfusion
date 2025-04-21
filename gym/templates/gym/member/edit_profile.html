@@ -1,0 +1,135 @@
+{% extends 'gym/member/member_base.html' %}
+{% load static %}
+
+{% block title %}
+  Profile Edit
+{% endblock %}
+
+{% block style %}
+  <style>
+    .profile-container {
+        max-width: 600px;
+        margin: 5% auto;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-header {
+        text-align: center;
+        color: white;
+        font-size: 24px;
+        padding: 15px;
+        font-weight: bold;
+        background: linear-gradient(to right, #26be52, #0a7435);
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .btn-update {
+        width: 100%;
+        font-size: 18px;
+        padding: 12px;
+        border-radius: 8px;
+        background-color: #28a745;
+        border: none;
+        transition: 0.3s;
+    }
+
+    .btn-update:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+    }
+
+    .alert {
+        width: 50%;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .profile-container {
+            width: 90%;
+            padding: 20px;
+        }
+        .alert {
+            width: 90%;
+        }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+ 
+
+  <div class="profile-container">
+    <div class="profile-header">Edit Profile</div>
+
+    <form method="post" action="/edit_profile/" class="needs-validation" novalidate>
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" required="required" value="{{ member_key.name }}">
+        <div class="invalid-feedback">Email is required</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required="required" value="{{ member_key.email }}">
+        <div class="invalid-feedback">Email is required</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input type="text" name="phone" class="form-control" id="phone" placeholder="Enter your phone number" required="required" value="{{ member_key.phone }}">
+        <div class="invalid-feedback">Phone number is required</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="state" class="form-label">State</label>
+        <input type="text" name="state" class="form-control" id="state" placeholder="Enter your state" required="required" value="{{ member_key.state }}">
+        <div class="invalid-feedback">State is required</div>
+      </div>  
+
+      <div class="mb-3">
+        <label for="city" class="form-label">City</label>
+        <input type="text" name="city" class="form-control" id="city" placeholder="Enter your city" required="required" value="{{ member_key.city }}">
+        <div class="invalid-feedback">City is required</div>
+      </div>
+
+
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea class="form-control" id="address" rows="3" name="address" placeholder="Enter your address" required="required">{{ member_key.address }}</textarea>
+        <div class="invalid-feedback">Address is required</div>
+      </div>
+
+      <div class="mb-3">
+         <label for="gym" class="form-label">Gym:</label>
+           <select name="gym" required>
+             {% for gym in gym_key %}
+                <option value="{{gym.gym_id}}" {% if gym.gym_id == member_key.gym.gym_id %}selected{% endif %}>
+                  {{ gym.gym_name }} 
+                  <!--  -->
+                </option>>
+              {%endfor%}  
+           </select>
+      </div>
+
+      <button type="submit" class="btn btn-success btn-update">Update Profile</button>
+
+    </form>
+  </div>
+
+  <script src="{% static 'club_app/JS/validation.js' %}"></script>
+
+{% endblock %}

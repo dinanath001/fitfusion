@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career - Join FitFusion</title>
+    {% include 'gym/common_files/common_css.html' %}
+
+    <style>
+        .career-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .career-title {
+            font-size: 2rem;
+            color: #4a148c;
+            margin-bottom: 15px;
+        }
+
+        .career-intro {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .fitness-icon {
+            font-size: 40px;
+            position: absolute;
+            opacity: 0.7;
+        }
+
+        .icon-dumbbell { top: -10px; left: -20px; color: #ff6b6b; }
+        .icon-running { top: -10px; right: -20px; color: #34c759; }
+        .icon-flex { bottom: -10px; left: -20px; color: #ffcc00; }
+        .icon-yoga { bottom: -10px; right: -20px; color: #007aff; }
+
+        .alert-container {
+            width: 50%;
+            margin: 20px auto;
+        }
+
+        .career-form-container {
+            background-color: rgb(169, 118, 217);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .career-form-container form {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .btn-submit {
+            align-self: flex-end;
+            padding: 10px 15px;
+            background: #dc3545;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background: #b02a37;
+        }
+
+        .form-label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+{% include 'gym/common_files/common_header1.html' %}
+
+<!-- Background Audio -->
+<audio autoplay>
+    <source src="{% static 'gym/video_audio/career_page.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<div class="main-body">
+
+    {% if messages %}
+    <div class="alert-container">
+        {% for m in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>🏆 {{ m }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Career Section -->
+    <div class="career-container">
+        <h1 class="career-title">Join Our Team 💪</h1>
+        <p class="career-intro">We are always looking for passionate individuals to be part of FitFusion. Apply now! 🏋️‍♂️</p>
+
+        <!-- Fitness Icons -->
+        <i class="fitness-icon fas fa-dumbbell icon-dumbbell"></i>
+        <i class="fitness-icon fas fa-running icon-running"></i>
+        <i class="fitness-icon fas fa-biking icon-flex"></i>
+        <i class="fitness-icon fas fa-spa icon-yoga"></i>
+
+        <!-- Form Section -->
+        <div class="career-form-container">
+            <form enctype="multipart/form-data" method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                <label for="id_name" class="form-label">Full Name</label>
+                {{ form.name }}
+
+                <label for="id_phone" class="form-label">Phone Number</label>
+                {{ form.phone }}
+
+                <label for="id_email" class="form-label">Email Address</label>
+                {{ form.email }}
+
+                <label for="id_gym_id" class="form-label">Select Gym</label>
+                {{ form.gym_id }}
+
+                <label for="id_about_user" class="form-label">About You</label>
+                {{ form.about_user }}
+
+                <label for="id_user_cv" class="form-label">Upload CV</label>
+                {{ form.user_cv }}
+
+                <button type="submit" class="btn-submit">🚀 Apply Now</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'gym/common_files/common_footer.html' %}
+<script src="{% static 'gym/JS/validation.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+from django.urls import path 
+from . import views ,member_views ,gym_views
+
+urlpatterns = [
+    path('',views.home ,name='home'),
+
+    path('about/' , views.about , name='about'),
+
+    path('contact/' ,views.contact ,name="contact"),
+
+    path('demo/' ,views.demo ),
+
+    path('trainer/',views.trainer_detail ,name='trainer'),
+
+    path('workout_public/',views.workout_public ,name='workout_public'),
+    
+    path('bodybuilding/',views.bodybuilding ,name="bodybuilding"),
+
+    path('cardio/',views.cardio ,name="cardio"),
+
+    path('HIIT/',views.HIIT ,name="HIIT"),
+
+    path('strength/',views.strength ,name="strength"),
+
+    path('yoga/',views.yoga ,name="yoga"),
+
+    path('gym_locator/', views.gym_locator, name='gym_locator'),  # Without gym_name
+    #gym_name:use for nutrition page for finding perticuler gym name by slug_name
+    path('gym_locator/<str:gym_name>/', views.gym_locator, name='gym_locator_with_name'),  # With gym_name
+
+
+
+    path('career/',views.career,name='career'),
+
+    path('nutrition/',views.nutrition,name='nutrition'),
+
+    path('event/',views.event,name='event'),
+
+    path('review/',views.review,name='review'),
+
+    path('feedback/',member_views.feedback,name='feedback'),
+
+    path('register_member/',member_views.register_member,name='register_mem'),#register_mem-->use in {url 'register_mem'}
+
+    path('member_login/',member_views.member_login,name='member_login'),
+
+    path('member_home/',member_views.member_home,name='member_home'),
+
+    path('logout/',member_views.logout,name='logout'),
+
+    path('edit_profile/',member_views.edit_profile,name='edit_profile'),
+
+    path('query_doubt/',member_views.query_doubt,name='query_doubt'),
+
+    path('view_answer/',member_views.view_answer,name='view_answer'),
+
+    path('work_resource/',member_views.work_resource,name='work_resource'),
+
+    path('register_gym/',gym_views.register_gym,name='register_gym'),
+
+    path('gym_login/',gym_views.gym_login,name='gym_login'),
+
+    path('logout/',gym_views.logout,name='logout'),
+
+    path('gym_home/',gym_views.gym_home,name='gym_home'),
+
+    path('edit_owner_profile/',gym_views.edit_owner_profile,name='edit_owner_profile'),
+
+    path('add_trainer/',gym_views.add_trainer,name='add_trainer'),
+
+    path('view_trainer/',gym_views.view_trainer,name='view_trainer'),
+
+    path('delete_trainer/<int:trainer_id>/',gym_views.delete_trainer,name='delete_trainer'),
+
+    path("view_members/",gym_views.view_members,name='view_members'),
+
+    path('add_nutrition/',gym_views.add_nutrition,name='add_nutrition'),
+
+    path('add_workout/',gym_views.add_workout,name='add_workout'),
+
+    path('toggle-payment/<str:member_id>/',gym_views.toggle_payment_status,name="toggle_payment_status"),
+    #member_id is a string (CharField), not an integer.
+
+    path('view_feed/',gym_views.view_feed,name='view_feed'),
+
+    path('query_handel/',gym_views.query_handel,name="query_handel"),
+
+    path("add_news/",gym_views.add_news ,name="add_news"),
+
+    path("add_event/",gym_views.add_event,name="add_event"),
+
+    path("view_notice/",member_views.view_notice,name="view_notice"),
+
+    path("trainers/",member_views.trainers,name="trainers"),
+
+    path('inbox/',member_views.inbox,name="inbox"),
+
+    path('sent_message/',member_views.sent_message,name="sent_message"),
+
+    path('compose_message/',member_views.compose_message,name='compose_message'),
+
+    #path('message_detail/',member_views.message_detail,name='message_detail'),
+
+    path('delete_message/<int:message_id>/',member_views.delete_message,name="delete_message"),
+
+    path('add_equipment/',gym_views.add_equipment,name='add_equipment'),
+
+    path('gym_details/',views.gym_details,name='gym_details'),
+
+    path('gym_details/<str:gym_id>/', views.gym_details, name='gym_details'),
+
+    path('view_equipments/',gym_views.view_equipment,name='view_equipments'),
+
+    path('delete-equipment/<int:equipment_id>/', gym_views.delete_equipment, name='delete_equipment'),
+
+    path('all_applicant/',gym_views.view_applicant,name='all_applicant')
+
+    
+
+
+       
+
+    
+
+
+
+    
+    
+
+
+
+    
+]

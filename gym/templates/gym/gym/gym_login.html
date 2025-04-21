@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Owner Login</title>
+    {% include 'gym/common_files/common_css.html' %}
+
+    <!-- Custom Styles -->
+    <style>
+       body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: url({% static 'gym/images/backg/gym1.jpg' %}) center/cover no-repeat; 
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+       }
+
+       .login-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+       }
+
+       .login-box {
+            width: 450px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(7px);
+       }
+
+       .input-group input {
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding-right: 35px; /* To make space for the eye icon */
+       }
+
+       .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+       }
+
+       .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 20px;
+       }
+
+       .login-box .btn-warning {
+            width: 50%;
+            display: block;
+            margin: 0 auto;
+       }
+    </style>
+</head>
+
+<body>
+    {% include 'gym/common_files/common_header1.html' %}
+    
+    {% if messages %}
+    {% for m in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" style="width:50%; margin:20px auto;">
+            <strong>{{ m }}</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    
+    <div class="login-container">
+        <div class="login-box">
+            
+            <h2 class="text-success">Gym Owner Login</h2>
+            
+            <form action="{% url 'gym_login' %}" method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-transparent border-0 text-white"><i class='fas fa-at'></i></span>
+                    <input type="text" placeholder="Enter Gym ID" class="form-control" name="gym_id" required>
+                    <div class="invalid-feedback">Gym ID required</div>
+                </div>
+
+                <div class="input-group mb-3" style="position: relative;">
+                    <span class="input-group-text bg-transparent border-0 text-white"><i class='fas fa-lock'></i></span>
+                    <input type="password" placeholder="Enter Password" class="password-input form-control" name="password" id="password" required>
+                    <span class="eye-icon toggle-password">👁️</span> <!-- Eye icon for password visibility -->
+                    <div class="invalid-feedback">Password required</div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-warning">Login</button>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <a href="{% url 'register_gym' %}" class="text-decoration-none text-white">
+                        <b>Register Your Gym</b> <i class="fa fa-user-plus ms-1"></i>
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+     <!-- //for password toggle -->
+    <script src="{% static 'gym/JS/password_visible.js'%}"></script> 
+    <script src="{% static 'gym/JS/validation.js' %}"></script> 
+</body>
+</html>

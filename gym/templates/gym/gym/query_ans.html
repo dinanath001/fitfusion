@@ -1,0 +1,53 @@
+{% extends "gym/gym/gym_base.html" %}
+
+{% block title %} Answer Queries {% endblock %}
+
+{% block content %}
+<div class="main-body">
+    <h2>Member Queries</h2>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Member Name</th>
+                <th>Subject</th>
+                <th>Question</th>
+                <th>Date</th>
+                <th>Answer</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for query in query_key %}
+            <tr>
+                <td>{{ query.member.name }}</td>
+                <td>{{ query.subject }}</td>
+                <td>{{ query.question }}</td>
+                <td>{{ query.question_date }}</td>
+                <td>{{ query.answer|default:"Not answered yet" }}</td>
+                <td>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="query_id" value="{{ query.id }}">
+                        <textarea name="answer" required placeholder="Enter your answer here..."></textarea>
+                        <button type="submit">Submit Answer</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No queries available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

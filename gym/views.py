@@ -1,0 +1,158 @@
+from django.shortcuts import render,HttpResponse,redirect
+from .models import Event ,News , Contact , Trainer , Workout ,Gym ,NutritionPlan ,Feedback ,GymFacilities
+from .forms import ApplicantDetailForm
+from django.contrib import messages
+from django.db.models import Q    
+
+
+# Create your views here.
+def home(request):
+    news_list = News.objects.order_by('-news_time')[:5]#set limit by time 
+    latest_event = Event.objects.order_by('-event_date').first()  # Latest event
+    reviews = Feedback.objects.order_by('-date')[:5]
+    context = {
+    "notice_key": news_list, #pass news
+    "event_key": latest_event,  # Pass only the latest event
+    "feedback_key" : reviews, #pass feedback data
+    
+     }
+    return render(request, 'gym/html/index.html',context)
+
+def review(request):
+   feed_list = Feedback.objects.order_by('-date')
+   context={'feed_key':feed_list}
+   return render(request,'gym/html/feed.html',context)
+
+def event(request):
+   
+   event_list = Event.objects.order_by('-event_date')
+   return render(request , 'gym/html/event.html',{'event_key':event_list})
+
+def about(request):
+   return render(request , 'gym/html/about.html')
+
+def contact(request):
+    if request.method=="GET":
+     return render(request ,'gym/html/contact.html')
+    #  #return HttpResponse("<h1> You Can contact us via our official Mail</h1>")
+    if request.method == "POST":  # HTTP protocol sends user data using POST method
+        # Use .get() to avoid KeyErrors
+        user_name = request.POST.get("name", "Anonymous")  
+        user_email = request.POST.get("email", "No Email Provided")
+        user_message = request.POST.get("message", "").strip()  # Ensure no empty messages
+
+        # Validate that message is not empty
+        if not user_message:
+            messages.error(request, "Message cannot be empty.")
+            return render(request, "gym/html/contact.html")
+
+        # Save to database
+        contact_obj = Contact(name=user_name, email=user_email, message=user_message)
+        contact_obj.save()
+
+        # Show success message
+        messages.success(request, "❤❤ Thank you for contacting us! We will reach out soon 😎😎")
+        return redirect("contact")  # Redirect to prevent duplicate submissions
+
+    # 🔴 Default return statement to handle unexpected cases
+    return render(request, "gym/html/contact.html")
+
+def demo(request):
+   return render(request , 'gym/html/demo.html')
+
+def workout_public(request):
+   workout_list = Workout.objects.order_by('title')
+   context = {
+      'workout_key' : workout_list
+   }
+   return render(request , 'gym/html/workout_public.html' ,context)
+
+def nutrition(request):
+   nutrition_list = NutritionPlan.objects.all()
+   context = {'nutrition_key' : nutrition_list}
+   return render(request , 'gym/html/nutrition.html',context)
+
+def bodybuilding(request):
+   return render(request ,'gym/html/bodybuilding.html')
+
+def cardio(request):
+   return render(request ,'gym/html/cardio_train.html')
+
+def HIIT(request):
+   return render(request ,'gym/html/hiit_train.html')
+
+def strength(request):
+   return render(request ,'gym/html/strength_train.html')
+
+def yoga(request):
+   return render(request ,'gym/html/yoga_train.html')
+
+def trainer_detail(request):
+   trainer_list = Trainer.objects.order_by('name')[:6]
+   context =  {'trainer_key' : trainer_list}
+   return render(request , 'gym/html/trainer_details.html' ,context)
+
+
+
+def career(request):
+    if request.method == "GET":
+        application = ApplicantDetailForm()
+        gym_list = Gym.objects.all()
+        context = {'form': application, 'gym_key': gym_list}  # Pass gym list to context
+        return render(request, 'gym/html/career.html', context)
+   
+    if request.method == "POST":
+        application = ApplicantDetailForm(request.POST, request.FILES)
+        if application.is_valid():
+            application.save()
+            messages.success(request, 'Thank you for applying! We will contact you soon. 😊')
+            return redirect('career')  # Ensure correct URL name or use reverse()
+
+
+
+
+#import pagination for big search fields
+from django.core.paginator import Paginator
+
+def gym_locator(request, gym_name=None):  
+    # Step 1: Fetch all gyms from the database
+    gyms_queryset = Gym.objects.all()
+
+    # Step 2: Filter by gym name if provided in the URL
+    if gym_name:
+        gyms_queryset = gyms_queryset.filter(gym_name__icontains=gym_name)
+
+    # Step 3: Get the search query from GET parameter (gym_city)
+    search_city = request.GET.get('gym_city')
+    if search_city:
+        gyms_queryset = gyms_queryset.filter(gym_city__icontains=search_city) #gyms_queryset--> Gym.objects.all()
+
+    # Step 4: Set up pagination (5 gyms per page)
+    paginator = Paginator(gyms_queryset, 5)
+    current_page_number = request.GET.get('page')
+    gyms_page = paginator.get_page(current_page_number)
+
+    # Step 5: Pass data to the template
+    context = {
+        'gym_key': gyms_page,         # Paginated gyms list
+        'query': search_city,         # City search query (to refill input)
+        'gym_name': gym_name          # Optional name filter (if passed in URL)
+    }
+
+    return render(request, 'gym/html/gym_locator.html', context)
+
+
+def gym_details(request , gym_id):
+   gym = Gym.objects.get(gym_id=gym_id)
+   #fetch data from GymFac.. table 
+   #Then it fetches the related gym facilities from the GymFacilities table, filtering by this gym
+   equip_list = GymFacilities.objects.filter(gym = gym).order_by('-body_part')
+   context ={
+      'equip_key': equip_list,
+        'gym': gym
+           }
+   return render(request,'gym/html/gym_details.html',context)
+
+
+
+

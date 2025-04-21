@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitFusion - Your Ultimate Fitness Partner</title>
+
+    <link rel="stylesheet" href="{% static 'gym/CSS/index.css' %}">
+    
+  
+</head>
+<body>
+{% include 'gym/common_files/common_header.html'%}
+
+<div class="main-body">    
+    <header class="hero">
+        <video id="video1" class="active" autoplay muted>
+            <source src="{% static 'gym/video_audio/index_video/vid4.mp4' %}" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <video id="video2" muted>
+            <source src="{% static 'gym/video_audio/index_video/vid2.mp4' %}" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <video id="video3" muted>
+            <source src="{% static 'gym/video_audio/index_video/vid5.mp4' %}" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <video id="video4" muted>
+            <source src="{% static 'gym/video_audio/index_video/vid1.mp4' %}" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+
+         <div class="hero-content">
+            <h1>Transform Your Fitness Journey</h1>
+            <p>Personalized workouts, meal plans, and expert guidance.</p>
+           <p style="text-align: center;"><a href="/register_member/"  class="btn-primary">Join Now</a></p>
+        </div>
+    </header>
+
+    <section class="features">
+        <!-- Left Side: Feature Boxes -->
+        <div class="features-left">
+            <div class="feature-box-news">
+                <h1 style="color:red;text-align:center;">Important Notices</h3>
+                <marquee direction="up" scrollamount="2" onmouseover="this.stop()" onmouseout="this.start()">
+            
+                {%for n in notice_key%}
+                  
+                  <h3 style="font-family: fantasy; text-align: center;" >{{n.news_title}}</h3>
+                  <li>→ {{ n.news_description }}</li> 
+                  <li>→ Posted on: {{ n.news_time }}</li>
+                  <li>→ Gym Branch: {{ n.gym }}</li> 
+                  <li>→ News by: {{ n.news_by }}</li>
+                
+                {% endfor %}
+                </marquee>
+            </div>
+            <div class="feature-box">
+                <h3>💬 Community Support</h3>
+                <p>Join interactive forums, participate in fitness challenges, and get tips from experienced members and trainers. Build connections that motivate you every day!</p>
+            </div> 
+            
+            <div class="feature-box">
+                <h3>📈 Progress Tracking</h3>
+                <p>Track your workouts, calories burned, body measurements, and achievements all in one dashboard. Get personalized insights to optimize your performance.</p>
+            </div>
+            
+        </div>
+
+        <!-- Right Side: Upcoming Events Box -->
+        <div class="event-box">
+            <h2>Upcoming Fitness Events</h2>
+            <img src="/media/{{event_key.event_image}}" class="card-img-top" alt="..event"> 
+            
+            <p><strong>Name:</strong> {{ event_key.event_name }}</p>
+            <ul>
+                <li><strong>Date:</strong> {{ event_key.event_date }}</li>
+                <li><strong>Venue:</strong> {{ event_key.event_venue }}</li>
+                <li><strong>Organizer:</strong> {{ event_key.gym_id }}</li>
+                <li class="event-description">
+                    <strong>Description:</strong> {{ event_key.event_description }}
+                </li>
+            </ul>
+            
+            <a href="/event/" class="btn-primary">View All Events</a>
+        </div>
+        
+       
+    </section>
+
+    <section class="why-choose">
+        <h2>Why Choose FitFusion?</h2>
+        <p>At FitFusion, we believe in holistic fitness. We provide complete guidance, from diet planning to mental wellness, ensuring that you stay on track with your goals.</p>
+    </section>
+    
+    <section class="testimonials">
+        <h2>What Our Members Say</h2>
+        {% for feed in feedback_key %}
+        <div class="testimonial-box">
+            
+            <p>{{feed.feedback}}</p>
+        
+           <li><strong>Gym: <a href="javascript:void(0);" style="text-decoration: none; color: #007bff;">{{ feed.gym }}</a></strong></li>
+
+            <strong>- {{feed.name}}, {{feed.age}}</strong>
+            <p>{{feed.rating}}</p>
+            <p>{{feed.date}}</p>
+       </div>
+       
+        {%endfor%}
+    <a href="/review/" class="btn-primary">View All Review's</a>   
+    </section>
+
+    <section class="cta">
+        <h2>Ready to Begin Your Fitness Journey?</h2>
+        <p>Sign up today and take the first step towards a healthier you!</p>
+        <a href="/register_member/" class="btn-primary">Get Started</a>
+    </section>
+</div>    
+
+
+
+<script src="{% static 'gym/JS/index.js' %}"></script> <!-- External JavaScript for video switching-->
+{%include 'gym/common_files/common_footer.html' %}
+</body>
+</html>

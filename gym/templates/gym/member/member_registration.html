@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Registration</title>
+    {% include 'gym/common_files/common_css.html' %}
+
+    <style>
+        body {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+            url({% static 'gym/images/backg/gym1.jpg' %}) no-repeat center center/cover;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+
+        .register-container {
+            width: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+            margin: 20px auto;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .register-container:hover {
+            box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.4);
+        }
+
+        h2 {
+            text-align: center;
+            color: #ff4d4d;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        h6 {
+            text-align: center;
+            color: #f4f4f4;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #ffcc00;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .radio {
+            display: none;
+        }
+
+        .radio + span {
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .radio:checked + span {
+            font-weight: bold;
+            color: #ffcc00;
+            border: 2px solid #ffcc00;
+        }
+
+        #profile_preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: none;
+            margin: 10px auto;
+            border: 3px solid #ff4d4d;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-warning {
+            background: #ffcc00;
+            border: none;
+            color: black;
+        }
+
+        .btn-success {
+            background: #28a745;
+            border: none;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #ff9900;
+        }
+
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+
+        .mb-3 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'gym/common_files/common_header1.html' %}
+
+    {% if messages %}
+        {% for m in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="width:50%; margin:20px auto;">
+                <strong>{{ m }}</strong> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="register-container">
+        <h2>Member Registration</h2>
+        <h6>Fill in your details below</h6>
+
+        <form method="post" action="/register_member/" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id">ID</label>
+                <input type="text" name="id" class="form-control" id="id" placeholder="Enter your ID" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" required minlength="4">
+            </div>
+
+            <div class="mb-3">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name">
+            </div>
+
+            <div class="mb-3">
+                <label for="phone">Phone Number</label>
+                <input type="tel" name="phone" class="form-control" id="phone" placeholder="Enter your Number" required pattern="[0-9]{10}" title="Enter a 10-digit phone number">
+            </div>
+
+            <div class="mb-3">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Gender</label>
+                <div class="radio-group">
+                    <label>
+                        <input class="radio" type="radio" name="gender" id="male" value="male" required>
+                        <span>Male</span>
+                    </label>
+                    <label>
+                        <input class="radio" type="radio" name="gender" id="female" value="female">
+                        <span>Female</span>
+                    </label>
+                    <label>
+                        <input class="radio" type="radio" name="gender" id="other" value="other">
+                        <span>Other</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="state">State</label>
+                <select id="state" name="state" class="form-control" required>
+                    <option value="">Select a State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="city">City</label>
+                <input type="text" name="city" class="form-control" id="city" placeholder="Enter your City" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="address">Your Address</label>
+                <textarea class="form-control" id="address" rows="3" name="address" placeholder="Your Address" required></textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label for="profile_picture">Your Image</label>
+                <input type="file" name="profile_picture" class="form-control" id="profile_picture" required accept="image/*" onchange="previewImage(event)">
+                <img id="profile_preview" src="" alt="Profile Picture Preview" style="display:none;">
+            </div>
+
+            <div class="mb-3">
+                <label for="gym">Select Gym</label>
+                <select name="gym" id="gym" class="form-control" required>
+                    <option value="">-- Select Gym --</option>
+                    {% for gym in gym_key %}
+                        <option value="{{ gym.gym_id }}">{{ gym.gym_name }} ({{ gym.gym_city }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <button type="reset" class="btn btn-warning">Reset</button>
+                <button type="submit" class="btn btn-success">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById("profile_preview");
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    {% include 'gym/common_files/common_footer.html' %}
+</body>
+</html>

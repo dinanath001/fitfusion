@@ -1,0 +1,38 @@
+{% extends "gym/gym/gym_base.html" %}
+
+{% block title %}View Applicants{% endblock %}
+
+{% block content %}
+<div class="main-body">
+    <h2>Job Applicants</h2>
+
+    {% if appli_key %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>About</th>
+                <th>Resume</th>
+                <th>Applied On</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for info in appli_key %}
+            <tr>
+                <td>{{ info.name }}</td>
+                <td>{{ info.email }}</td>
+                <td>{{ info.phone }}</td>
+                <td>{{ info.about_user }}</td>
+                <td><a href="{{ info.user_cv.url }}" target="_blank">View Resume</a></td>
+                <td>{{ info.date|date:"M d, Y" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No applicants found.</p>
+    {% endif %}
+</div>
+{% endblock %}

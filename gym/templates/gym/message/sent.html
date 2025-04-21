@@ -1,0 +1,18 @@
+{% extends 'gym/message/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Sent Messages</h2>
+    <ul class="list-group">
+        {% for msg in message_key %}
+            <li class="list-group-item">
+                <strong>To:</strong> {{ msg.receiver.name }} <br> 
+                <strong>Message:</strong> {{ msg.message }} <br>
+                <small>{{ msg.timestamp }}</small>
+            </li>
+        {% empty %}
+            <li class="list-group-item">You haven't sent any messages yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

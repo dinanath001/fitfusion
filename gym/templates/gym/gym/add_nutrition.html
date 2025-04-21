@@ -1,0 +1,39 @@
+{% extends 'gym/gym/gym_base.html' %}
+
+{% block title %}Add Nutrition Plan{% endblock %}
+
+{% block content %}
+<div class="main-body">
+    <h2 style="text-align:center;">🥗 Add Nutrition Plan 🍎</h2>
+
+    <!-- Display Success or Error Messages -->
+    {% if messages %}
+        {% for m in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ m }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <form action="/add_nutrition/" method="POST" style="max-width: 530px; margin: auto; padding: 15px; border: 3px solid #ddd; border-radius: 30px;">
+        {% csrf_token %}
+        
+        <label for="plan_type"><strong>Plan Type:</strong></label>
+        <select name="plan_type" required>
+            <option value="weight_loss">Weight Loss</option>
+            <option value="muscle_gain">Muscle Gain</option>
+            <option value="maintenance">Maintenance</option>
+            <option value="custom">Custom</option>
+        </select><br><br>
+
+        <label for="calories_per_day"><strong>Calories Per Day:</strong></label>
+        <input type="number" name="calories_per_day" required><br><br>
+
+        <label for="meals"><strong>Meals (Describe):</strong></label>
+        <textarea name="meals" rows="4" cols="40" required></textarea><br><br>
+
+        <button type="submit" style="background: green; color: white; padding: 8px 12px; border-radius: 5px; cursor: pointer;">Save Plan</button>
+    </form>
+</div>
+{% endblock %}

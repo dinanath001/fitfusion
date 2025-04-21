@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    {%load static%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+        {% block style %} {% endblock %}
+
+    {% include 'gym/common_files/common_css.html' %}
+</head>
+<body>
+    
+    {% include 'gym/message/header.html' %}
+
+    <div style="background: scroll;" class="main-body">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+
+    {% include 'gym/common_files/common_footer.html' %}
+    
+     
+</body>
+</html>

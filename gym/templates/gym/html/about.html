@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - FitFusion</title>
+    {% include 'gym/common_files/common_css.html' %}
+    <style>
+        body {
+            background: linear-gradient(to right, rgb(157, 146, 133), rgb(149, 206, 206));
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .main-body {
+            padding: 50px 10%;
+        }
+
+        .section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 60px;
+            padding: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(52px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .text-content {
+            width: 50%;
+        }
+
+        .video-content {
+            width: 45%;
+        }
+
+        .video-content video {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .highlight {
+            color: #ff6600;
+            font-weight: bold;
+        }
+
+        /* Alternating content layout */
+        .section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .text-content, .video-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+{% include 'gym/common_files/common_header1.html' %}
+<!-- Background Audio -->
+<audio autoplay>
+    <source src="{% static 'gym/video_audio/about.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+    <div class="main-body">
+        <h1>About FitFusion</h1>
+
+        <!-- Section 1: Video Left, Text Right -->
+        <section class="section">
+            <div class="video-content">
+                <video autoplay loop muted>
+                    <source src="{% static 'gym/video_audio/about/vid1.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-content">
+                <h2>What is <span class="highlight">FitFusion</span>?</h2>
+                <p>FitFusion is more than just a fitness directory – it's a movement dedicated to making fitness accessible to everyone. We connect individuals with the best gym facilities in their area, provide expert fitness guidance, and foster a community of like-minded individuals passionate about health and wellness.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Text Left, Video Right -->
+        <section class="section">
+            <div class="text-content">
+                <h2>Our <span class="highlight">Journey</span></h2>
+                <p>FitFusion started with a simple idea: to bridge the gap between people looking for fitness solutions and the gyms providing them. Our founders, a group of fitness enthusiasts and tech innovators, saw this challenge and created FitFusion – a digital platform that makes discovering, comparing, and joining gyms effortless.</p>
+            </div>
+            <div class="video-content">
+                <video autoplay loop muted>
+                    <source src="{% static 'gym/video_audio/about/vid3.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+        </section>
+
+        <!-- Section 3: Video Left, Text Right -->
+        <section class="section">
+            <div class="video-content">
+                <video autoplay loop muted>
+                    <source src="{% static 'gym/video_audio/about/vid4.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-content">
+                <h2>Our <span class="highlight">Mission</span> & Vision</h2>
+                <p>We believe that fitness should be simple, accessible, and engaging. Our mission is to make it easier for people to find and join gyms, provide expert advice to help users achieve their fitness goals, and create a supportive fitness community.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Text Left, Video Right -->
+        <section class="section">
+            <div class="text-content">
+                <h2>What We <span class="highlight">Offer</span></h2>
+                <p>FitFusion is your one-stop platform for all things fitness. Here’s how we help:</p>
+                <ul>
+                    <li>🏋️ Gym Finder: Search for gyms based on your city, facilities, and pricing.</li>
+                    <li>💡 Expert Advice: Access workout plans and nutrition guides curated by fitness professionals.</li>
+                    <li>📢 Community Engagement: Join discussions and participate in challenges.</li>
+                    <li>⚡ Exclusive Membership Deals: Get discounts on gym memberships and wellness products.</li>
+                </ul>
+            </div>
+            <div class="video-content">
+                <video autoplay loop muted>
+                    <source src="{% static 'gym/video_audio/about/vid5.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+        </section>
+
+        <!-- Section 5: Video Left, Text Right -->
+        <section class="section">
+            <div class="video-content">
+                <video autoplay loop muted>
+                    <source src="{% static 'gym/video_audio/about/vid6.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-content">
+                <h2>Join <span class="highlight">FitFusion</span> Today!</h2>
+                <p>Ready to transform your fitness experience? Join FitFusion now and unlock a world of possibilities! 💪</p>
+            </div>
+        </section>
+        <section class="values-section">
+            <h2>Our Core Values</h2>
+            <ul>
+                <li><strong>Accessibility:</strong> Fitness should be available to everyone, regardless of location or experience level.</li>
+                <li><strong>Community:</strong> We believe in supporting and motivating one another.</li>
+                <li><strong>Innovation:</strong> Leveraging technology to enhance the fitness journey.</li>
+                <li><strong>Authenticity:</strong> Providing honest reviews, verified gym information, and expert-backed advice.</li>
+            </ul>
+        </section>
+
+        <section class="services-section">
+            <h2>What We Offer</h2>
+            <p>FitFusion is your one-stop platform for all things fitness. Here’s how we help:</p>
+            <div class="services-list">
+                <h3>🏋️ Gym Finder</h3>
+                <p>Search for gyms based on your city, facilities, and pricing.</p>
+
+                <h3>💡 Expert Advice</h3>
+                <p>Access articles, workout plans, and nutrition guides curated by fitness professionals.</p>
+
+                <h3>📢 Community Engagement</h3>
+                <p>Join discussions, participate in challenges, and connect with fitness enthusiasts.</p>
+
+                <h3>⚡ Exclusive Membership Deals</h3>
+                <p>Get discounts on gym memberships, personal training, and wellness products.</p>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <p>Getting started with FitFusion is easy:</p>
+            <ol>
+                <li><strong>Search:</strong> Enter your city or preferred gym location.</li>
+                <li><strong>Compare:</strong> Check gym facilities, pricing, and user ratings.</li>
+                <li><strong>Choose:</strong> Select the best gym that suits your fitness goals.</li>
+                <li><strong>Join:</strong> Get started on your fitness journey with ease.</li>
+            </ol>
+        </section>
+
+        <section class="faqs">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>How do I search for a gym on FitFusion?</h3>
+                <p>Simply enter your city or location in the search bar, and you’ll see a list of gyms with detailed information.</p>
+            </div>
+            <div class="faq">
+                <h3>Are the gym listings accurate?</h3>
+                <p>Yes, we regularly verify and update gym details to ensure accuracy.</p>
+            </div>
+            <div class="faq">
+                <h3>Is FitFusion free to use?</h3>
+                <p>Yes! Searching for gyms and accessing fitness guides is completely free.</p>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2>Contact Us</h2>
+            <p>We’re here to help! If you have any questions or need support, reach out to us:</p>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:support@fitfusion.com">support@fitfusion.com</a></li>
+                <li><strong>Phone:</strong> +1 234 567 890</li>
+                <li><strong>Address:</strong> FitFusion HQ, 123 Hanuman Mandir Road, Deoria City, Uttar Pradesh</li>
+                <li><strong>Follow Us:</strong> <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">Twitter</a></li>
+            </ul>
+            <p>Let's build a fitter, healthier world together!💪</p>
+        </section>
+    
+    </div>
+
+    {% include 'gym/common_files/common_footer.html' %}
+
+ <script src="{% static 'gym/JS/about.js' %}"></script>   <!--external js for scrool effect -->
+</body>
+</html>

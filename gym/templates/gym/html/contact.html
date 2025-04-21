@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    
+    {% include 'gym/common_files/common_css.html' %}
+    <!-- Common CSS linked here -->
+    <style>
+        /* Contact Page Layout */
+        .contact-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 70px 20px;
+        }
+
+        /* Contact Form Styling */
+        .container1 {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            text-align: center;
+            padding: 25px;
+            backdrop-filter: blur(3px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Success Message */
+        .message-container {
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Input Fields - Added vertical gap */
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: border-color 0.3s;
+            margin-bottom: 15px; /* Space below each field */
+        }
+        
+        input:focus, textarea:focus {
+            border-color: #28a745;
+        }
+
+        /* Submit Button */
+        .submit-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px 30px;  /* Reduced size */
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .contact-container {
+                padding: 20px;
+            }
+            .container1 {
+                width: 100%;
+                max-width: 90%;
+            }
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'gym/common_files/common_header.html'%}
+
+    <div class="main-body">
+        <div class="contact-container">
+            <div class="container1">
+                <h2>Contact Us</h2>
+
+                <!-- Success Message -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="message-container">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post" action="{% url 'contact' %}" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+                    
+                    <div class="submit-container">
+                        <button type="submit">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% include 'gym/common_files/common_footer.html' %}
+    <script src="{% static 'gym/JS/validation.js' %}"></script>
+</body>
+</html>

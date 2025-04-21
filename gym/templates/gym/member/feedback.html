@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportsClub | Member Feedback</title>
+    
+    {% include 'gym/common_files/common_css.html' %}
+
+    <style>
+        body {
+            background-image: url({% static 'gym/images/backg/gym1.jpg' %});
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .feedback-container {
+            width: 50%;
+            margin: auto;
+            margin-top: 5%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .feedback-header {
+            text-align: center;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            width: 80%;
+            margin: auto;
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .radio {
+            display: none;
+        }
+
+        .rating-label span {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            filter: grayscale(100%);
+        }
+
+        .radio:checked ~ span {
+            filter: grayscale(0%);
+            font-size: 2.5rem;
+        }
+
+        .btn-submit {
+               width: 50%;
+               max-width: 150px;
+               display: block;
+               margin: 5px auto 0; /* Centering */
+               font-size: 16px;
+               padding: 10px;
+               border-radius: 8px;
+              } 
+                       
+
+
+
+        @media (max-width: 768px) {
+            .feedback-container {
+                width: 80%;
+            }
+            .input-group, .btn-submit {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+  
+  {% include 'gym/member/member_header.html' %}
+
+  <div style="background: scroll;" class="main-body">
+      
+      {% if messages %}
+      {% for m in messages %}
+      <div class="alert alert-success alert-dismissible fade show text-center" role="alert" style="width: 50%; margin: auto;">
+        <strong>{{ m }}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      <div class="feedback-container">
+        <h2 class="feedback-header"><i class="fas fa-comments"></i> Member Feedback</h2>
+
+        <form action="/feedback/" method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+
+            <div class="input-group">
+                <label for="name" class="input-group-text"><i class="fas fa-user"></i></label>
+                <input type="text" placeholder="Enter your Name" class="form-control" name="name">
+                
+            </div>
+
+            <div class="input-group">
+                <label for="age" class="input-group-text"><i class="fas fa-calendar"></i></label>
+                <input type="number" placeholder="Enter your Age" class="form-control" name="age" required>
+                <div class="invalid-feedback">Age Required</div>
+            </div>
+
+           
+
+            <h5 class="text-center mt-3">Rate Your Experience</h5>
+            <div class="d-flex justify-content-center">
+                <label class="rating-label">
+                    <input class="radio" type="radio" name="rating" value="⭐" required />
+                    <span>😒</span>
+                </label>
+                <label class="rating-label">
+                    <input class="radio" type="radio" name="rating" value="⭐⭐" />
+                    <span>🙂</span>
+                </label>
+                <label class="rating-label">
+                    <input class="radio" type="radio" name="rating" value="⭐⭐⭐" />
+                    <span>🤗</span>
+                </label>
+                <label class="rating-label">
+                    <input class="radio" type="radio" name="rating" value="⭐⭐⭐⭐" />
+                    <span>😍</span>
+                </label>
+                <label class="rating-label">
+                    <input class="radio" type="radio" name="rating" value="⭐⭐⭐⭐⭐" />
+                    <span>🤩</span>
+                </label>
+                <label class="rating-label">
+                  <input class="radio" type="radio" name="rating" value="⭐⭐⭐⭐⭐🌟" />
+                  <span>💖</span>
+              </label>
+            </div>
+
+            <div class="input-group">
+                <label for="feedback" class="input-group-text"><i class="fas fa-pencil-alt"></i></label>
+                <textarea class="form-control" rows="4" name="feedback" required></textarea>
+                <div class="invalid-feedback">Feedback Required</div>
+            </div>
+
+            <button  type="submit" class="btn btn-success btn-submit" >Submit Feedback</button>
+        </form>
+      </div>
+  </div>
+
+  <script src="{% static 'gym/JS/validation.js' %}"></script>
+  {% include 'gym/common_files/common_footer.html' %}
+
+</body>
+</html>

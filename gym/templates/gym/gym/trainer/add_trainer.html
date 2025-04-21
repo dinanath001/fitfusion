@@ -1,0 +1,64 @@
+{% extends 'gym/gym/gym_base.html' %}
+
+{% block title %} Add Trainers {% endblock %}
+
+{% block style %}
+<style>
+    .trainer-container {
+        max-width: 600px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .trainer-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: center;
+        color: #4a148c;
+    }
+
+    .btn-submit {
+        width: 100%;
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-submit:hover {
+        background: #b02a37;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Success Messages -->
+    {% if messages %}
+        {% for m in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ m }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="trainer-container">
+        <h2 class="trainer-title">🏋️ Add a New Trainer</h2>
+        <p class="text-center">Enhance your gym team by adding professional trainers!</p>
+
+        <form action="/add_trainer/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form_key.as_p }}
+            </div>
+            <button type="submit" class="btn-submit">🚀 Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

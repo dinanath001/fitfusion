@@ -1,0 +1,66 @@
+{% extends 'gym/gym/gym_base.html' %}
+
+{% block title %}
+Gym-Owner Dashboard
+{% endblock %}
+{% block style %}
+<style>
+.dashboard-container {
+    width: 90%;
+    margin: 7% auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-box {
+    width: 350px;
+    text-align: center;
+}
+
+.profile-box img {
+    width: 100%;
+    height: auto;
+    border: 3px solid #007bff;
+    border-radius: 20px;
+    box-shadow: 0px 3px 8px rgba(0, 123, 255, 0.5);
+}
+
+.details-box {
+    flex: 1;
+    padding: 0 20px;
+}
+
+.details-box h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.details-box i {
+    margin-right: 8px;
+    color: #007bff;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    
+    <div class="profile-box">
+          <img src="/media/{{ gym_owner.gym_image }}" alt="Gym Logo">
+     </div>
+
+    <div class="details-box">
+        <h4><i class="fas fa-dumbbell"></i> Gym Name: {{ gym_owner.gym_name }}</h4>
+        <h4><i class="fas fa-phone"></i> Phone: {{ gym_owner.contact }}</h4>
+        
+        <h4><i class="fas fa-map-marker-alt"></i> Address: {{ gym_owner.address }}</h4>
+        <h4><i class="fas fa-city"></i> City: {{ gym_owner.gym_city }}</h4>
+        <h4><i class="fas fa-building"></i> YOur Payment: {{ gym_owner.payment }}</h4>
+    </div>
+</div>
+{% endblock %}

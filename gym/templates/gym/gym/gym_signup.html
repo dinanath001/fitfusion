@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Owner Registration</title>
+    {% include 'gym/common_files/common_css.html' %}
+
+    <style>
+        body {
+             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                         url({% static 'gym/images/backg/gym1.jpg' %}) center/cover no-repeat;
+             font-family: 'Poppins', sans-serif;
+             margin: 0;
+             padding: 0;
+             color: white;
+           }
+           
+           .register-container {
+               width: 50%;
+               background: rgba(255, 255, 255, 0.1);
+               backdrop-filter: blur(5px);
+               padding: 30px;
+               border-radius: 10px;
+               box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+               margin: 20px auto;
+               transition: 0.3s;
+           }
+           
+           .register-container:hover {
+               box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+           }
+           
+           h2 {
+               text-align: center;
+               color: #ff4d4d;
+               font-weight: bold;
+               text-transform: uppercase;
+           }
+           
+           h6, label {
+               text-align: center;
+               color: #ffcc00;
+           }
+           
+           .form-control {
+               width: 100%;
+               padding: 10px;
+               border: none;
+               border-radius: 5px;
+               background: rgba(255, 255, 255, 0.2);
+               color: white;
+               outline: none;
+               transition: 0.3s;
+           }
+           
+           .form-control:focus {
+               background: rgba(255, 255, 255, 0.3);
+               box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+           }
+           
+           #gym_image_preview {
+               width: 100px;
+               height: 100px;
+               border-radius: 10px;
+               object-fit: cover;
+               display: none;
+               margin: 10px auto;
+               border: 2px solid #ff4d4d;
+           }
+           
+           .btn-group {
+               display: flex;
+               justify-content: center;
+               gap: 15px;
+           }
+           
+           .btn {
+               padding: 10px 20px;
+               font-size: 1rem;
+               border-radius: 5px;
+               cursor: pointer;
+               font-weight: bold;
+               transition: 0.3s;
+           }
+           
+           .btn-warning {
+               background: #ffcc00;
+               border: none;
+               color: black;
+           }
+           
+           .btn-success {
+               background: #28a745;
+               border: none;
+               color: white;
+           }
+           
+           .btn-warning:hover {
+               background: #ff9900;
+           }
+           
+           .btn-success:hover {
+               background: #1e7e34;
+           }
+           
+    </style>
+</head>
+<body>
+    {% include 'gym/common_files/common_header1.html' %}
+
+    
+
+    <div class="register-container">
+        <h2>Gym Owner Registration</h2>
+        <h6>Fill in your gym details below</h6>
+
+        <form method="post" action="/register_gym/" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="gym_id">Gym ID</label>
+                <input type="text" name="gym_id" class="form-control" id="gym_id" placeholder="Enter your Gym ID" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="gym_password">Password</label>
+                <input type="password" name="gym_password" class="form-control" id="gym_password" placeholder="Enter Password" required minlength="4">
+            </div>
+
+            <div class="mb-3">
+                <label for="owner_name">Owner Name</label>
+                <input type="text" name="owner_name" class="form-control" id="owner_name" placeholder="Enter your Name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="name">Gym Name</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter Gym Name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="city">City</label>
+                <input type="text" name="city" class="form-control" id="city" placeholder="Enter Gym City" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="contact">Contact Number</label>
+                <input type="tel" name="contact" class="form-control" id="contact" placeholder="Enter Contact Number" required pattern="[0-9]{10}" title="Enter a 10-digit phone number">
+            </div>
+
+            <div class="mb-3">
+                <label for="address">Gym Address</label>
+                <textarea class="form-control" id="address" rows="3" name="address" placeholder="Enter Gym Address" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="gym_image">Gym Image</label>
+                <input type="file" name="gym_image" class="form-control" id="gym_image" required accept="image/*" onchange="previewImage(event)">
+                <img id="gym_image_preview" src="" alt="Gym Image Preview" style="display:none;">
+            </div>
+
+            <div class="btn-group">
+                <button type="reset" class="btn btn-warning">Reset</button>
+                <button type="submit" class="btn btn-success">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById("gym_image_preview");
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    {% include 'gym/common_files/common_footer.html' %}
+</body>
+</html>

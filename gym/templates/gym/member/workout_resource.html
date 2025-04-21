@@ -1,0 +1,117 @@
+{% extends "gym/member/member_base.html" %}
+
+{% block title %} Workout Resources {% endblock %}
+
+{% block style %}
+<style>
+    .workout-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .workout-card {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        transition: transform 0.3s;
+    }
+
+    .workout-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .workout-text {
+        flex: 1;
+        padding: 15px;
+    }
+
+    .workout-text h3 {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    .workout-text h4 {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .workout-text p {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .workout-media {
+        flex: 1;
+        max-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .workout-media video,
+    .workout-media img {
+        width: 100%;
+        max-height: 200px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .no-workout {
+        text-align: center;
+        font-size: 16px;
+        color: #888;
+        padding: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .workout-card {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .workout-media {
+            max-width: 100%;
+            margin-top: 10px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center; margin-bottom: 20px;">Your Workout Resources</h2>
+
+{% if workout_key %}
+    <div class="workout-container">
+        {% for work in workout_key %}
+        <div class="workout-card">
+            <div class="workout-text">
+                <h4><strong>Title:</strong>{{ work.title }}</h4>
+                <h4>{{ work.get_workout_type_display }}</h4>
+                <p>{{ work.description }}</p>
+                <p style="font-size: 14px; font-weight: bold; color: #777;">🏋️ Gym: {{ work.gym }}</p>
+            </div>
+
+            <div class="workout-media">
+                {% if work.video %}
+                    <video controls>
+                        <source src="{{ work.video.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% elif work.image %}
+                    <img src="{{ work.image.url }}" alt="{{ work.title }}">
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="no-workout">No Workouts Available</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events | FitFusion</title>
+    {% include 'gym/common_files/common_css.html' %}
+
+    <style>
+        /* Page Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+
+        /* Event Container */
+        .event-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Event Card */
+        .event-card {
+            width: 300px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .event-card:hover {
+            transform: scale(1.05);
+        }
+
+        /* Event Image */
+        .event-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        /* Event Details */
+        .event-body {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .event-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .event-info {
+            font-size: 0.95rem;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        /* Button */
+        .event-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #28a745;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .event-btn:hover {
+            background: #218838;
+        }
+
+        /* No Events Message */
+        .no-events {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #777;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'gym/common_files/common_header1.html' %}
+
+    <div class="main-body">
+        <h1>📅 Upcoming Events</h1>
+
+        <div class="event-container">
+            {% if event_key %}
+                {% for event in event_key %}
+                    <div class="event-card">
+                        <img src="/media/{{event.event_image}}" class="event-img" alt="Event Image">
+                        <div class="event-body">
+                            <h3 class="event-title">{{ event.event_name }}</h3>
+                            <p class="event-info"><strong>Date:</strong> {{ event.event_date }}</p>
+                            <p class="event-info"><strong>Venue:</strong> {{ event.venue }}</p>
+                            <p class="event-info"><strong>Organizer:</strong> {{ event.event_organizer }}</p>
+                            <p class="event-info"><strong>Description:</strong> {{ event.event_description|truncatewords:50 }}</p>
+                        
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-events">🚀 No upcoming events! Stay tuned for updates.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% include 'gym/common_files/common_footer.html' %}
+</body>
+</html>

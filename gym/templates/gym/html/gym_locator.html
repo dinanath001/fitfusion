@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Locator | FitFusion</title>
+   
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Main Layout */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 10px; /* Reduced padding to reduce space */
+        }
+
+        /* Sticky Navbar */
+        .navbar {
+            background: #343a40;
+            padding: 6px 15px; /* Reduced padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px; /* Set fixed height */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Back to Home Button */
+        .back-home {
+            background: #ffc107;
+            color: black;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .back-home:hover {
+            background: #e0a800;
+        }
+
+        /* Dropdown Menu */
+        .menu-content {
+            display: none;
+            background: #343a40;
+            color: white;
+            padding: 15px;
+            position: absolute;
+            width: 280px;
+            top: 50px; /* Adjusted to align with navbar */
+            right: 10px;
+            z-index: 1000;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .menu-content.active {
+            display: block;
+        }
+
+        /* Gym Card */
+        .gym-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .gym-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            max-width: 100%;
+        }
+
+        /* Pagination */
+        .pagination a {
+            text-decoration: none;
+            padding: 8px 12px;
+            margin: 0 5px;
+            background: #28a745;
+            color: white;
+            border-radius: 5px;
+        }
+        .pagination a:hover {
+            background: #218838;
+        }
+
+        /* Responsive Fix for Menu */
+       
+        
+    </style>
+</head> 
+<body>
+<!-- Background Audio -->
+<audio autoplay>
+    <source src="{% static 'gym/video_audio/gym.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark">
+        <!-- Back to Home Button -->
+        <a href="{% url 'home' %}" class="back-home">🏠 Home</a>
+
+        <!-- Toggle Menu Button -->
+        <button class="navbar-toggler" type="button" id="menuToggle">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!-- Collapsible Menu -->
+    <div class="menu-content" id="menuContent">
+        <h4>Find a Gym</h4>
+        <p>Enter your city name to search for nearby gyms.</p>
+        <form method="GET" action="{% url 'gym_locator' %}">
+            <div class="input-group">
+                <input type="text" name="gym_city" class="form-control" placeholder="Enter city..." required>
+                <button type="submit" class="btn btn-success">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <h1 class="text-center text-dark">🏋️ Welcome to FitFusion Gym Locator 🏋️</h1>
+        <p class="text-center">Find the best gyms near you by entering your city name in the search bar.</p>
+
+        <!-- Gym Listings -->
+        <div class="main-content">
+            <h3>Available Gyms</h3>
+            {% for gym in gym_key %}
+            <div class="gym-card">
+                <h4 class="text-center">{{ gym.gym_name }}</h4>
+                {% if gym.gym_image %}
+                    <img src="{{ gym.gym_image.url }}" alt="Gym Image">
+                {% else %}
+                    <p class="text-center">No Image Available</p>
+                {% endif %}
+                <p><strong>Location:</strong> {{ gym.gym_city }}</p>
+                <p><strong>Contact:</strong> {{ gym.contact }}</p>
+                <p><strong>Address:</strong> {{ gym.address }}</p>
+            
+
+                <p><strong>Facilities:</strong> {{ gym.facilities }}</p>
+                 <div class="text-center mt-2">
+                    <a href="{% url 'gym_details' gym.gym_id %}" class="btn btn-outline-primary btn-sm">🔍 Show Gym Facilities</a> 
+                </div>
+            
+            </div>
+            {% empty %}
+            <p>No gyms found.</p>
+            {% endfor %}
+
+            <!-- Pagination -->
+            <div class="pagination text-center">
+                {% if gym_key.has_previous %}
+                    <a href="?gym_city={{ query }}&page=1">First</a>
+                    <a href="?gym_city={{ query }}&page={{ gym_key.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ gym_key.number }} of {{ gym_key.paginator.num_pages }}</span>
+
+                {% if gyms.has_next %}
+                    <a href="?gym_city={{ query }}&page={{ gym_key.next_page_number }}">Next</a>
+                    <a href="?gym_city={{ query }}&page={{ gym_key.paginator.num_pages }}">Last</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% include 'gym/common_files/common_footer.html' %}
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Toggle Menu Script -->
+    <script>
+        document.getElementById("menuToggle").addEventListener("click", function () {
+            document.getElementById("menuContent").classList.toggle("active");
+        });
+    </script>
+
+</body>
+</html>

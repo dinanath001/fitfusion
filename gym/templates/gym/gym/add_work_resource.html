@@ -1,0 +1,55 @@
+{% extends 'gym/gym/gym_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Add Workout Resource</h2>
+
+    <!-- Display Success Messages -->
+    {% if messages %}
+        {% for m in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ m }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Add Workout Form -->
+    <form method="post" enctype="multipart/form-data" class="shadow p-4 bg-light rounded">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Workout Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Enter Workout Title" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="workout_type" class="form-label">Workout Type</label>
+            <select class="form-control" id="workout_type" name="workout_type" required>
+                <option value="Strength">Strength Training</option>
+                <option value="Cardio">Cardio</option>
+                <option value="Flexibility">Flexibility</option>
+                <option value="Endurance">Endurance</option>
+                <option value="Balance">Balance</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Workout Description</label>
+            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Workout Description" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="video" class="form-label">Workout Video (Optional)</label>
+            <input type="file" class="form-control" id="video" name="video" accept="video/*">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Workout Image (Optional)</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Add Workout</button>
+    </form>
+</div>
+{% endblock %}
