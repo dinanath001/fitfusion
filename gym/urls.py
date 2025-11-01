@@ -11,6 +11,7 @@ urlpatterns = [
     path('event/', views.event, name='event'),
     path('review/', views.review, name='review'),
     path('search_results/', views.search_results, name='search_results'),
+    path('send_mail/', views.send_email_view, name='send_mail'),
 
     # -------------------- Workout & Health Content --------------------
     path('trainer/', views.trainer_detail, name='trainer'),

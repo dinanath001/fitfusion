@@ -1,4 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
+
+from FitFusion import settings
+
 from .models import Event ,News , Contact  , Workout ,Gym,Member,Trainer ,NutritionPlan ,Feedback ,GymFacilities
 from .forms import ApplicantDetailForm
 from django.contrib import messages
@@ -158,11 +161,11 @@ def search_results(request):
    query = request.GET.get('key' ,'').strip()
    results = {} #dictionary to store the search results
 
-   if query: 
+   if query:
         #Q(gym__icontains=query)  ❌  # gym is a ForeignKey, this won't work
          news_results = News.objects.filter(Q(news_title__icontains=query) | Q(gym__gym_name__icontains=query))
-         if news_results.exists():
-            results['news'] = news_results #store the news results under 'news' key
+         if news_results.exists(): 
+           results['news'] = news_results #store the news results under 'news' key
          
          #seach result in Event model
          event_results = Event.objects.filter(Q(event_name__icontains=query) | Q(event_venue__icontains=query)| Q(gym_id__icontains=query))
@@ -194,6 +197,31 @@ def search_results(request):
 
    return render(request , 'gym/html/search_results.html',{'query':query ,'results':results})
     
+
+from django.core.mail import send_mail
+
+def send_email_view(request):
+    if request.method == 'GET':
+       # Render form for GET request
+       return render(request, 'gym/html/send_email.html')
+       
+    if request.method == 'POST':
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        to_email = request.POST.get('to_email')
+
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [to_email],
+            fail_silently=False,
+        )
+        # Render success page after sending email
+        return render(request, 'gym/html/success.html', {'to_email': to_email})
+    
+    
+
             
 
              

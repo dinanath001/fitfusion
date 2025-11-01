@@ -85,7 +85,8 @@
     {% endfor %}
 {% endif %}
 
-<div class="max-w-6xl mx-auto mt-10 p-5">
+
+<div  class="max-w-6xl mx-auto mt-10 p-5">
     <div class="flex flex-col md:flex-row items-center justify-between gap-10 glass-box transition-all duration-700">
         
           <!-- Toggle Dark Mode -->
@@ -104,7 +105,8 @@
             <p class="mb-2"><i class="fas fa-envelope text-green-300 mr-2"></i> <strong>Email:</strong> {{ member_key.email }}</p>
             <p class="mb-2"><i class="fas fa-phone text-green-300 mr-2"></i> <strong>Phone:</strong> {{ member_key.phone }}</p>
             <p class="mb-2"><i class="fas fa-map-marker-alt text-green-300 mr-2"></i> <strong>Address:</strong> {{ member_key.address }}</p>
-            <p class="mb-2"><i class="fas fa-city text-green-300 mr-2"></i> <strong>City:</strong> {{ member_key.city }}, {{ member_key.state }}</p>
+            <p class="mb-2"><i class="fas fa-city text-green-300 mr-2"></i> <strong>City:</strong> {{ member_key.city }}</p>
+            <p class="mb-2"><i class="fas fa-city text-green-300 mr-2"></i> <strong>State:</strong> {{ member_key.state }}</p>
             <p class="mb-2"><i class="fas fa-calendar-check text-green-300 mr-2"></i> <strong>Joined:</strong> {{ member_key.date_joined|date:"M d, Y" }}</p>
         </div>
     </div>

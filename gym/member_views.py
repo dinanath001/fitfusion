@@ -139,13 +139,13 @@ def edit_profile(request):
         user_state=request.POST['state']
         user_city=request.POST['city']
         user_addr=request.POST['address']
-        gym =request.POST['gym']
+        # gym =request.POST['gym']
 
         #match id with session key
         #This line fetches the logged-in user's ID from the session.
         #"session_key" is the session variable that stores the member_id of the currently logged-in user.
         id = request.session['session_key']
-        gym_obj = Gym.objects.get(gym_id=gym)  # Fetch selected gym
+        # gym_obj = Gym.objects.get(gym_id=gym)  # Fetch selected gym
         Member.objects.filter(member_id=id).update(
             name=user_name,
             email=user_email,
@@ -153,7 +153,7 @@ def edit_profile(request):
             state=user_state,
             city=user_city,
             address=user_addr,
-            gym=gym_obj #update gym field 
+            # gym=gym_obj #update gym field 
             )
         messages.success(request,'Profile update successful😀')
         return redirect("member_home")

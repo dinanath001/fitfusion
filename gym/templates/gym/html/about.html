@@ -223,10 +223,13 @@
                 <li><strong>Phone:</strong> +1 234 567 890</li>
                 <li><strong>Address:</strong> FitFusion HQ, 123 Hanuman Mandir Road, Deoria City, Uttar Pradesh</li>
                 <li><strong>Follow Us:</strong> <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">Twitter</a></li>
+               <li><strong>Follow Us:</strong> <a href="{% url 'send_mail' %}">SendEmail</a></li>
+
             </ul>
             <p>Let's build a fitter, healthier world together!💪</p>
         </section>
     
+
     </div>
 
     {% include 'gym/common_files/common_footer.html' %}

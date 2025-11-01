@@ -113,17 +113,17 @@
         <div class="invalid-feedback">Address is required</div>
       </div>
 
-      <div class="mb-3">
+      <!-- <div class="mb-3">
          <label for="gym" class="form-label">Gym:</label>
            <select name="gym" required>
              {% for gym in gym_key %}
                 <option value="{{gym.gym_id}}" {% if gym.gym_id == member_key.gym.gym_id %}selected{% endif %}>
                   {{ gym.gym_name }} 
-                  <!--  -->
+                 
                 </option>>
               {%endfor%}  
            </select>
-      </div>
+      </div> -->
 
       <button type="submit" class="btn btn-success btn-update">Update Profile</button>
 

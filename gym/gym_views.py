@@ -50,7 +50,8 @@ def gym_login(request):
         messages.error(request,"Invalid Credentials or Your Gym is Black listed🙏🏿")
         return redirect("gym_login")
     
-#this is use to go back to home page of identified user    
+#this is use to go back to home page of identified user
+   
 def gym_home(request):
     if request.method=='GET':
         if 'session_key' not in request.session.keys():
@@ -67,8 +68,9 @@ def logout(request):
             return redirect("gym_login")
     else:
         del request.session['session_key']
+        request.session.flush() 
         del request.session['role']
-        return redirect('gym_login')
+        return redirect("gym_login")
 
 def edit_owner_profile(request):
     if request.method=='GET':   
