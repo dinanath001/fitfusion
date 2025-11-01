@@ -1,0 +1,102 @@
+{% extends 'gym/member/member_base.html' %}
+
+{% block title %} Query-Answer {% endblock %}
+
+{% block style %}
+<style>
+    /* General Page Styling */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .main-body {
+        flex: 1; /* Pushes the footer down */
+        padding-bottom: 50px; /* Ensures space above footer */
+    }
+
+    /* Query Container */
+    .query-container {
+        width: 80%;
+        margin: 40px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow-x: auto; /* Handles overflow in small screens */
+    }
+
+    h2 {
+        text-align: center;
+        color: #ff0033;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    /* Table Styles */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .table th, .table td {
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #ddd;
+        font-size: 16px;
+    }
+
+    .table th {
+        background-color: #ff0033;
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-body">
+    <h2>Status of Your Queries</h2>
+    <div class="query-container">
+        <table class="table">
+        <thead>
+             <tr>
+                <th>Question</th>
+                   <th>Question Date</th>
+                <th>Answer</th>
+                <th>Answer Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in ans_key %}
+                <tr>
+                    <td>{{ obj.question }}</td>
+                    <td>{{ obj.question_date }}</td>
+                    {% if obj.answer %}
+                    <td>{{ obj.answer }}</td> 
+                    {% else %}
+                    <th style="color:red">Yet to be answered</th>
+                    {% endif %}
+                    <td>{{ obj.answer_date }}</td> 
+                </tr>
+                {% endfor %}
+        </tbody>
+        </table>
+     </div>
+</div>
+{% endblock %}

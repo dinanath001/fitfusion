@@ -1,0 +1,35 @@
+{% extends "gym/gym/gym_base.html" %}
+
+{% block title %}View Applicants{% endblock %}
+
+{% block content %}
+<div class="main-body container my-4">
+    <h2 class="fw-bold text-primary mb-4">👥 Job Applicants</h2>
+
+    {% if appli_key %}
+        <div class="row g-4">
+            {% for info in appli_key %}
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2 text-success">{{ info.name }}</h5>
+                        <h6 class="card-subtitle mb-3 text-muted">{{ info.email }}</h6>
+                        <p class="mb-1"><strong>Phone:</strong> {{ info.phone }}</p>
+                        <p class="mb-1"><strong>About:</strong> <span class="text-muted">{{ info.about_user }}</span></p>
+                        <p class="mb-2"><strong>Applied On:</strong> {{ info.date|date:"M d, Y" }}</p>
+
+                        <a href="{{ info.user_cv.url }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                            📄 View Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info mt-4">
+            No applicants found at this time.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

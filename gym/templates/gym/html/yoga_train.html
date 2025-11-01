@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga & Mindfulness 🧘‍♂️</title>
+    {% include 'gym/common_files/common_css.html' %}
+    <style>
+        .yoga-container {
+            max-width: 1000px;
+            margin: auto;
+            text-align: center;
+            padding: 20px;
+        }
+        .yoga-container h1 {
+            font-size: 2.5rem;
+            color: #008080;
+        }
+        .yoga-container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+        }
+        .yoga-container img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .benefits-list {
+            text-align: left;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+        .benefits-list li {
+            margin: 10px 0;
+        }
+        .pose-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .pose-card {
+            width: 45%;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f0f9f8;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .pose-card img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+        }
+        .pose-card h3 {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #008080;
+        }
+    </style>
+</head>
+<body>
+    {% include 'gym/common_files/common_header1.html' %}
+    
+    <div class="main-body">
+        <section class="yoga-container">
+            <h1>🧘‍♂️ Yoga for Inner Peace & Strength ✨</h1>
+            <p>Yoga is more than just stretching; it’s a way of life that connects your mind, body, and soul. Improve flexibility, reduce stress, and enhance well-being through yoga practice. 🌿</p>
+            
+            <img src="{% static 'gym/images/resource/yoga4.jpg' %}" alt="Yoga and Meditation">
+
+            <h2>🌟 Why Practice Yoga?</h2>
+            <ul class="benefits-list">
+                <li>🧘 <strong>Enhances Flexibility:</strong> Improves posture and reduces stiffness.</li>
+                <li>💖 <strong>Boosts Mental Clarity:</strong> Reduces stress and increases focus.</li>
+                <li>🫁 <strong>Strengthens Respiratory System:</strong> Deep breathing increases oxygen intake.</li>
+                <li>🏋️‍♀️ <strong>Improves Core Strength:</strong> Strengthens muscles and stabilizes joints.</li>
+                <li>😌 <strong>Promotes Relaxation:</strong> Lowers anxiety and enhances sleep quality.</li>
+            </ul>
+
+            <h2>⚡ 5 Essential Yoga Poses</h2>
+            <p>Hold each pose for <strong>30-60 seconds</strong> while focusing on deep breathing. 🧘‍♀️</p>
+
+            <div class="pose-section">
+                <div class="pose-card">
+                    <img src="{% static 'gym/images/resource/yoga1.jpg' %}" alt="Tree Pose">
+                    <h3>Tree Pose 🌳</h3>
+                    <p>Improves balance and focus while strengthening legs.</p>
+                </div>
+                <div class="pose-card">
+                    <img src="{% static 'gym/images/resource/yoga2.jpg' %}" alt="Downward Dog">
+                    <h3>Downward Dog 🐶</h3>
+                    <p>Stretches the back, hamstrings, and shoulders.</p>
+                </div>
+                <div class="pose-card">
+                    <img src="{% static 'gym/images/resource/yoga3.jpg' %}" alt="Warrior Pose">
+                    <h3>Warrior Pose ⚔️</h3>
+                    <p>Strengthens legs and builds endurance.</p>
+                </div>
+                <div class="pose-card">
+                    <img src="{% static 'gym/images/resource/yoga4.jpg' %}" alt="Child’s Pose">
+                    <h3>Child’s Pose 🧘</h3>
+                    <p>Relieves stress and stretches the lower back.</p>
+                </div>
+                <div class="pose-card">
+                    <img src="{% static 'gym/images/resource/yoga6.jpg' %}" alt="Lotus Pose">
+                    <h3>Lotus Pose 🌺</h3>
+                    <p>Promotes deep meditation and inner peace.</p>
+                </div>
+            </div>
+
+            <p>Inhale deeply, exhale stress, and embrace tranquility. 🌿✨</p>
+        </section>
+    </div> 
+
+    {% include 'gym/common_files/common_footer.html' %}
+</body>
+</html>

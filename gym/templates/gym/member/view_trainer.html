@@ -1,0 +1,86 @@
+{% extends 'gym/member/member_base.html' %}
+
+{% block title %} View Trainers {% endblock %}
+
+{% block style %}
+<style>
+    .main-body {
+        padding-bottom: 50px;
+        text-align: center;
+    }
+    .trainer-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+    .trainer-card {
+        width: 300px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        text-align: center;
+        padding: 15px;
+        transition: transform 0.3s;
+    }
+    .trainer-card:hover {
+        transform: scale(1.05);
+    }
+    .trainer-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border: 3px solid #ff0033;
+    }
+    .trainer-name {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+    .trainer-info {
+        font-size: 14px;
+        color: #666;
+        margin: 5px 0;
+    }
+    .trainer-specialization {
+        font-size: 14px;
+        font-weight: bold;
+        color: #ff0033;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <h2>Available Trainers</h2>
+    <div class="trainer-container">
+        {% for trainer in trainer_key %}
+        <div class="trainer-card">
+            <img class="trainer-img" src="{{ trainer.trainer_pic.url }}"  alt="Trainer Photo">
+            
+            <div class="trainer-name">{{ trainer.name }}</div>
+            <div class="trainer-info">{{ trainer.gender }} | {{ trainer.city }}</div>
+            <div class="trainer-specialization">{{ trainer.specialization }}</div>
+            <div class="trainer-info">Experience: {{ trainer.experience }} years</div>
+            <div class="trainer-info" style="font-style: italic;">{{ trainer.about_trainer|default:"No details available" }}</div>
+            <div class="trainer-name">Working-in:{{ trainer.gym}}</div>
+            <!-- For booking trainer's -->
+           <form method="POST">
+                {% csrf_token %}
+            <select class="form-control" id="trainerSelect" name="trainer_id" required>
+                   <option value="{{ trainer.id }}">{{ trainer.name }}</option>
+            </select>
+            <button type="submit" class="btn btn-primary mt-3">Send Booking Request</button>
+           </form>
+
+        </div>
+        {% empty %} 
+        <p style="color:red; width: 100%;">No trainers available</p>
+        {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Details</title>
+    {% include 'gym/common_files/common_css.html' %}
+
+    <style>
+        /* Flexbox for Card Layout */
+        .flex-container1 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start; /* Aligns cards at the top */
+            padding: 20px;
+        }
+
+        /* Card Styling */
+        .card {
+            width: 18rem; /* Slightly larger width */
+            min-height: auto; /* Adjusts based on content */
+            border-radius: 15px;
+            border: 2px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            background: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hover Effect */
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Image Styling */
+        .card-img-top {
+            width: 100%;
+            height: 190px; /* Increased for better visuals */
+            object-fit:cover;
+            object-position: center top;
+            border-radius: 12px 12px 0 0;
+            transition: opacity 0.3s;
+        }
+
+        .card-img-top:hover {
+            opacity: 0.9;
+        }
+
+        /* Card Body */
+        .card-body {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        /* Titles */
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Text */
+        .card-text {
+            font-size: 0.95rem;
+            color: #555;
+            margin: 2px 0;
+            line-height: 1.4;
+        }
+
+        /* Footer Button */
+        .card-footer {
+            padding: 10px;
+            text-align: center;
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+        }
+
+        .btn-details {
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+            color: #fff;
+            background: #28a745;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn-details:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+
+<body style="background-color: antiquewhite;">
+    {% include 'gym/common_files/common_header1.html' %}
+   
+     <!-- Background Audio -->
+     <audio autoplay loop>
+        <source src="{% static 'gym/video_audio/trainer/audio1.mp3' %}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+
+<div class="main-body">
+ 
+
+    <h1 style="color:#2c3e50;text-align:center;margin-bottom: 20px;">🏋️‍♂️ Meet Our Expert Trainers 🏋️‍♀️</h1>
+
+    <div class="flex-container1">
+        {% for train in trainer_key %}
+        <div class="card">
+            <img src="/media/{{ train.trainer_pic }}" class="card-img-top" alt="Trainer Image">
+            <div class="card-body">
+                <h5 class="card-title">{{ train.name }}</h5> 
+                <p class="card-text"><strong>Email:</strong> {{ train.email }}</p>
+                <p class="card-text"><strong>City:</strong> {{ train.city }}</p>
+                <p class="card-text"><strong>Gym:</strong> {{ train.gym }}</p>
+                <p class="card-text"><strong>Specialization:</strong> {{ train.specialization }}</p>
+                <p class="card-text"><strong>Experience:</strong> {{ train.experience }}</p>
+                <p class="card-text"><strong>About:</strong> {{ train.about_trainer }}</p>
+                <p class="card-text"><strong>Expertise:</strong> {{ train.area_of_interest }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn-details">View Profile</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include 'gym/common_files/common_footer.html' %}
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends "gym/member/member_base.html" %}
+
+{% block title %}Calorie Prediction Result{% endblock %}
+
+{% block style %}
+<style>
+    .result-container {
+        background: #1c1f2b;
+        color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 500px;
+        margin: 50px auto;
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+
+    .result-container h2 {
+        color: #00f0ff;
+        margin-bottom: 15px;
+    }
+
+    .result-container p {
+        font-size: 24px;
+        color: #00ff99;
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        margin-top: 20px;
+        background-color: #00f0ff;
+        border: none;
+        color: #000;
+        font-weight: 600;
+        padding: 8px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    .btn-primary:hover {
+        background-color: #00e0e0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="result-container">
+    <h2>Your Predicted Calorie Intake</h2>
+    <p>{{ calories }} kcal/day</p>
+    <a href="{% url 'calorie_predictor' %}" class="btn btn-primary">⬅ Back to Dashboard</a>
+</div>
+{% endblock %}

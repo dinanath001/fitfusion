@@ -1,0 +1,77 @@
+{% extends 'gym/member/member_base.html' %}
+
+{% block title %}
+Member Query & Doubts
+{% endblock %}
+
+{% block style %}
+<style>
+    .query-container {
+        max-width: 350px; /* Reduced width */
+        margin: 40px auto;
+        padding: 25px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .query-container h1 {
+        text-align: center;
+        color: #dc3545;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        background-color: #dc3545;
+        color: white;
+        padding: 8px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn-submit:hover {
+        background-color: #bb2d3b;
+    }
+
+    .alert-box {
+        max-width: 450px;
+        margin: 15px auto;
+        text-align: center;
+    }
+
+    /* Responsive Fix */
+    /* @media (max-width: 400px) {
+        .query-container {
+            max-width: 90%;
+            padding: 20px;
+        }
+    } */
+</style>
+{% endblock %}
+
+
+{% block content %}
+{% if messages %}
+    {% for m in messages %}
+    <div class="alert alert-success alert-dismissible fade show alert-box" role="alert">
+        <strong>{{ m }}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<div class="query-container">
+    <h1>Submit Your Queries</h1>
+    <form action="/query_doubt/" method="post">
+        {% csrf_token %}
+        {{ form_key.as_p }}
+        <div class="text-center">
+            <button class="btn-submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

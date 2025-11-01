@@ -1,0 +1,108 @@
+{% extends 'gym/gym/gym_base.html' %}
+
+{% block title %}
+Trainer Booking Management
+{% endblock %}
+
+{% block style %}
+<style>
+    .booking-card {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+    .booking-actions {
+        margin-top: 10px;
+    }
+    .btn-confirm {
+        background-color: #28a745;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .btn-deny {
+        background-color: #dc3545;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .btn-confirm:hover, .btn-deny:hover {
+        opacity: 0.9;
+    }
+    .status-badge {
+        padding: 3px 7px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .status-pending {
+        background-color: #ffc107;
+        color: #fff;
+    }
+    .status-confirmed {
+        background-color: #28a745;
+        color: #fff;
+    }
+    .status-denied {
+        background-color: #dc3545;
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>Trainer Booking Requests</h2>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+
+{% if booking_key %}
+    {% for request in booking_key %}
+    <div class="booking-card">
+        <p><strong>{{ request.member.name }}</strong> requested to book <b>{{ request.trainer.name }}</b></p>
+        <p>Request Date: {{ request.request_date }}</p>
+        <p>Status: 
+            {% if request.status == 'pending' %}
+                <span class="status-badge status-pending">Pending</span>
+            {% elif request.status == 'confirmed' %}
+                <span class="status-badge status-confirmed">Confirmed</span>
+            {% else %}
+                <span class="status-badge status-denied">Denied</span>
+            {% endif %}
+        </p>
+
+        {% if request.status != 'confirmed' %}
+        <div class="booking-actions">
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="request_id" value="{{ request.id }}">
+                <input type="hidden" name="status" value="confirmed">
+                <button type="submit" class="btn-confirm">Confirm</button>
+            </form>
+
+            {% if request.status == 'pending' %}
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="request_id" value="{{ request.id }}">
+                <input type="hidden" name="status" value="denied">
+                <button type="submit" class="btn-deny">Deny</button>
+            </form>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No trainer booking requests found.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'gym/gym/gym_base.html' %}
+
+{% block title %}View Members{% endblock %}
+
+{% block style %}
+<style>
+    .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .card {
+        width: 18rem;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        background: #fff;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .card img {
+        width: 100%;
+        height: 220px;
+        object-fit: unset;
+        background-color: #f8f9fa;
+        padding: 2px;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .trainer-list {
+        text-align: left;
+        padding: 10px;
+    }
+
+    .trainer-list ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .trainer-list li {
+        margin-bottom: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+    {% for m in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ m }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<div class="main-body">
+    <h2 style="text-align:center;">🏋️‍♂️ Our Gym Members 🏋️‍♀️</h2>
+
+    <div class="flex-container">
+        {% for member in member_key %}
+        <div class="card">
+            <img src="/media/{{ member.profile_picture }}" alt="Member Image">
+            <div class="card-body">
+                <h5>{{ member.name }}</h5>
+                <p><strong>Phone:</strong> {{ member.phone }}</p>
+                <p><strong>Email:</strong> {{ member.email }}</p>
+                <p><strong>State:</strong> {{ member.state }}</p>
+                <p><strong>City:</strong> {{ member.city }}</p>
+                <p><strong>Address:</strong> {{ member.address }}</p>
+
+                <form action="{% url 'toggle_payment_status' member.member_id %}" method="POST" style="margin-top: 10px;">
+                    {% csrf_token %}
+                    <button type="submit" style="background: {% if member.payment %}green{% else %}red{% endif %}; color: white; padding: 5px 10px; border: none; cursor: pointer;">
+                        {% if member.payment %} ✅ Paid {% else %} ❌ Not Paid {% endif %}
+                    </button>
+                </form>
+            </div>
+
+            <div class="trainer-list">
+                <p><strong>Trainer Booking:</strong></p>
+                <ul>
+                    {% for booking in trainer_key %}
+                        {% if booking.member.member_id == member.member_id %}
+                            <li>➡️ {{ booking.trainer.name }} (Status: {{ booking.status }})</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% empty %}
+        <p style="text-align: center; width: 100%;">No members found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

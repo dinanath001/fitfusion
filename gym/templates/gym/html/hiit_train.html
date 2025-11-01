@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Intensity Interval Training (HIIT) 🔥</title>
+    {% include 'gym/common_files/common_css.html' %}
+    <style>
+        .hiit-section {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+            padding: 20px;
+        }
+        .hiit-section h1 {
+            font-size: 2.5rem;
+            color: #ff4500;
+        }
+        .hiit-section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #444;
+        }
+        .hiit-section img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .hiit-list {
+            text-align: left;
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+        .hiit-list li {
+            margin: 10px 0;
+        }
+        .hiit-exercises {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .exercise {
+            width: 45%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .exercise img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+        }
+        .exercise h3 {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+    {% include 'gym/common_files/common_header1.html' %}
+    
+    <div class="main-body">
+        <section class="hiit-section">
+            <h1>🔥 High-Intensity Interval Training (HIIT) 🔥</h1>
+            <p>HIIT is an advanced workout technique where you push your limits with short bursts of intense exercise followed by quick recovery periods. Get ready to burn fat fast, improve endurance, and boost your metabolism! 🚀</p>
+            
+            <img src="{% static 'gym/images/resource/hiit3.jpeg' %}" alt="HIIT Workout">
+            
+            <h2>💪 Why Choose HIIT?</h2>
+            <ul class="hiit-list">
+                <li>⏱️ <strong>Time-efficient:</strong> Get a full workout in just 20-30 minutes!</li>
+                <li>🔥 <strong>Fat Burner:</strong> Helps burn more calories even after your workout.</li>
+                <li>🏋️‍♂️ <strong>No Equipment Needed:</strong> Do it anywhere, anytime!</li>
+                <li>❤️ <strong>Improves Heart Health:</strong> Boosts endurance & strengthens your heart.</li>
+            </ul>
+
+            <h2>⚡ Sample 5-Minute HIIT Workout</h2>
+            <p>Perform each exercise for <strong>30 seconds</strong> followed by <strong>15 seconds rest</strong>. Complete 3-4 rounds for maximum impact! 💥</p>
+
+            <div class="hiit-exercises">
+                <div class="exercise">
+                    <img src="{% static 'gym/images/resource/hiit1.jpeg' %}" alt="Jump Squats">
+                    <h3>Jump Squats 🔄</h3>
+                </div>
+                <div class="exercise">
+                    <img src="{% static 'gym/images/resource/hiit2.jpeg' %}" alt="Push-ups">
+                    <h3>Push-ups 💪</h3>
+                </div>
+                <div class="exercise">
+                    <img src="{% static 'gym/images/resource/hiit3.jpeg' %}" alt="Mountain Climbers">
+                    <h3>Mountain Climbers 🏃‍♂️</h3>
+                </div>
+                <div class="exercise">
+                    <img src="{% static 'gym/images/resource/hiit4.jpeg' %}" alt="Burpees">
+                    <h3>Burpees 🔥</h3>
+                </div>
+                <div class="exercise">
+                    <img src="{% static 'gym/images/resource/hiit5.jpeg' %}" alt="Plank">
+                    <h3>Plank Hold 🏋️</h3>
+                </div>
+            </div>
+
+            <p>Stay strong and keep pushing your limits! 💯</p>
+        </section>
+    </div> 
+
+    {% include 'gym/common_files/common_footer.html' %}
+</body>
+</html>

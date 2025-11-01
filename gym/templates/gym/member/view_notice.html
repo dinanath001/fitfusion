@@ -1,0 +1,62 @@
+{% extends 'gym/member/member_base.html' %}
+
+{% block title %} Notices & News {% endblock %}
+
+{% block style %}
+<style>
+    .main-body {
+        padding-bottom: 50px;
+        text-align: center;
+    }
+    .notice-container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+    th {
+        background: #ff0033;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-body">
+    <h2>Latest Notices & News</h2>
+    <div class="notice-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for notice in news_key %}
+                <tr>
+                    <td>{{ notice.news_title }}</td>
+                    <td>{{ notice.news_description }}</td>
+                    <td>{{ notice.news_time }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3" style="color:red;">No notices available</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

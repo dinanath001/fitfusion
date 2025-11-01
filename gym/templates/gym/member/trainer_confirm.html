@@ -1,0 +1,49 @@
+{% extends "gym/member/member_base.html" %}
+
+{% block title %} Confirm Trainer Booking Request {% endblock %}
+
+{% block style %}
+<style>
+    .confirmation-card {
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin-top: 40px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .btn-custom {
+        background-color: #007bff;
+        color: white;
+        border-radius: 8px;
+    }
+    .btn-custom:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="confirmation-card text-center">
+    <h2 class="mb-4">🎉 Trainer Booking Confirmed!</h2>
+
+    {% if confirm_key %}
+        <p class="lead">
+            Your trainer booking with 
+            <strong>{{ confirm_key.trainer.name }}</strong> 
+            has been <span class="text-success">successfully confirmed</span>!
+        </p>           
+        <hr>
+        <p><strong>Confirmation Date:</strong> {{ confirm_key.confirmation_date }}</p>
+        <p><strong>Personal Trainer Assigned:</strong> {{ confirm_key.trainer }}</p>
+
+        <a href="{% url 'member_home' %}" class="btn btn-outline-success btn-sm">Back to Dashboard</a>
+
+    {% else %}
+        <p class="lead text-danger">You have no confirmed trainer bookings yet.</p>
+        <a href="{% url 'book_trainer' %}" class="btn btn-outline-success btn-sm">Book a Trainer</a>
+    {% endif %}
+</div>
+{% endblock %}

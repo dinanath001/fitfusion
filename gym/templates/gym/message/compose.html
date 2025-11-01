@@ -1,0 +1,34 @@
+{% extends 'gym/message/base.html' %}
+
+{% block content %}
+{% if messages %}
+        {% for m in messages %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ m }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+        {% endif %}
+        
+<div class="container mt-4">
+    <h2>Compose Message</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="receiver" class="form-label">Send To:</label>
+            <select name="receiver" id="receiver" class="form-select" required>
+                <option value="">Select a User</option>
+                {% for user in user_key %}
+                    <option value="{{ user.member_id }}">{{ user.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="message" class="form-label">Message:</label>
+            <textarea name="message" id="message" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>
+
+{% endblock %}

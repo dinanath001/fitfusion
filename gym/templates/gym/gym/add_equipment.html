@@ -1,0 +1,117 @@
+{% extends "gym/gym/gym_base.html" %}
+
+{% block title%} Add Equipment {%endblock%}
+
+{%block style%}
+<style>
+   
+
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      width: 150px;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"] {
+      flex: 1;
+      padding: 8px;
+      margin-right: 10px;
+    }
+
+    .form-group input[type="file"] {
+      flex: 1;
+    }
+
+    .equipment-section {
+      margin-top: 22px;
+    
+    }
+
+    select {
+      padding: 8px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    button {
+      display: block; 
+      padding: 10px 25px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  </style>
+{%endblock%}
+
+{%block content%}
+<!-- Success Messages -->
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endfor %}
+{% endif %}
+<!-- start form code -->
+<h2>Workout Equipment Submission Form</h2>
+
+<form action="/add_equipment/" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <!-- Body Part Selection -->
+  <label for="body-part">Select Body Part:</label>
+  <select name="body_part" id="body-part" required>
+    <option value="">--Choose--</option>
+    <option value="arms">Arms</option>
+    <option value="legs">Legs</option>
+    <option value="chest">Chest</option>
+    <option value="back">Back</option>
+    <option value="shoulders">Shoulders</option>
+    <option value="abs">Abs</option>
+  </select>
+
+  <!-- Equipment Fields -->
+  <div class="equipment-section">
+    <!-- Repeatable blocks -->
+    <div class="form-group">
+      <label for="equipment1">Equipment 1:</label>
+      <input type="text" name="equipment_name[]" id="equipment1" placeholder="Enter equipment name" required>
+      <input type="file" name="equipment_images1[]" accept="image/*" multiple required>
+    </div>
+
+    <div class="form-group">
+      <label for="equipment2">Equipment 2:</label>
+      <input type="text" name="equipment_name[]" id="equipment2" placeholder="Enter equipment name">
+      <input type="file" name="equipment_images2[]" accept="image/*" multiple>
+    </div>
+
+    <div class="form-group">
+      <label for="equipment3">Equipment 3:</label>
+      <input type="text" name="equipment_name[]" id="equipment3" placeholder="Enter equipment name">
+      <input type="file" name="equipment_images3[]" accept="image/*" multiple>
+    </div> 
+
+    <div class="form-group">
+      <label for="equipment4">Equipment 4:</label>
+      <input type="text" name="equipment_name[]" id="equipment4" placeholder="Enter equipment name">
+      <input type="file" name="equipment_images4[]" accept="image/*" multiple>
+    </div>
+
+    <div class="form-group">
+      <label for="equipment5">Equipment 5:</label>
+      <input type="text" name="equipment_name[]" id="equipment5" placeholder="Enter equipment name">
+      <input type="file" name="equipment_images5[]" accept="image/*" multiple>
+    </div>
+  </div>
+
+  <button  class="btn" style="background-color: green;" type="submit">Submit</button>
+</form>
+{%endblock%}
+
+
+

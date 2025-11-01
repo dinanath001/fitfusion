@@ -1,0 +1,44 @@
+{% extends 'gym/message/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Conversation with {{ user_key.name }}</h2>
+
+    <!-- Chat Start Button -->
+    <form method="GET" action="{% url 'message_detail' %}" class="mb-3">
+        {% csrf_token %}
+        <select name="receiver" id="receiver" class="form-select" required>
+            <option value="">Select a User</option>
+            {% for u in users %}  {# Assuming 'users' is the correct queryset in your view #}
+                <option value="{{ u.name }}">{{ u.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary mt-2">Start Chat</button>
+    </form>
+
+    <div class="card">
+        <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+            <ul class="list-group">
+                {% for msg in msg_key %}
+                    <li class="list-group-item 
+                      {% if msg.sender.name == member.name %} text-end bg-light 
+                      {% else %} text-start bg-primary text-white 
+                      {% endif %}">
+                        <strong>
+                            {% if msg.sender == member %}
+                                You
+                            {% else %}
+                                {{ msg.sender.name }}
+                            {% endif %}:
+                        </strong> 
+                        {{ msg.message }} <br>
+                        <small class="text-muted">{{ msg.timestamp }}</small>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item text-center">No messages yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

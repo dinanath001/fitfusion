@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strength Training 🏋️‍♂️</title>
+    {% include 'gym/common_files/common_css.html' %}
+    <style>
+        .strength-container {
+            max-width: 1000px;
+            margin: auto;
+            text-align: center;
+            padding: 20px;
+        }
+        .strength-container h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+        }
+        .strength-container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+        }
+        .strength-container img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .benefits-list {
+            text-align: left;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+        .benefits-list li {
+            margin: 10px 0;
+        }
+        .exercise-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .exercise-card {
+            width: 45%;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .exercise-card img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+        }
+        .exercise-card h3 {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    {% include 'gym/common_files/common_header1.html' %}
+    
+    <div class="main-body">
+        <section class="strength-container">
+            <h1>🏋️‍♂️ Strength Training for Power & Endurance 💪</h1>
+            <p>Build strength, gain muscle, and enhance your endurance with strength training. Whether you use bodyweight exercises or heavy lifting, strength training is key to a fit and powerful body! 🔥</p>
+            
+            <img src="{% static 'gym/images/resource/strength8.jpg' %}" alt="Strength Training">
+
+            <h2>💪 Benefits of Strength Training</h2>
+            <ul class="benefits-list">
+                <li>🏋️ <strong>Increases Muscle Mass:</strong> Helps you build and maintain lean muscles.</li>
+                <li>🔥 <strong>Boosts Metabolism:</strong> Burns calories efficiently, even at rest.</li>
+                <li>🦴 <strong>Strengthens Bones:</strong> Reduces the risk of osteoporosis.</li>
+                <li>💖 <strong>Improves Heart Health:</strong> Enhances cardiovascular endurance.</li>
+                <li>🧠 <strong>Boosts Mental Health:</strong> Reduces stress and improves confidence.</li>
+            </ul>
+
+            <h2>⚡ Strength Training Exercises</h2>
+            <p>Perform each exercise for <strong>8-12 reps</strong> and <strong>3-4 sets</strong>. Rest for <strong>30-60 seconds</strong> between sets for maximum gains! 🏆</p>
+
+            <div class="exercise-section">
+                <div class="exercise-card">
+                    <img src="{% static 'gym/images/resource/strength3.jpg' %}" alt="Deadlifts">
+                    <h3>Deadlifts 🏋️</h3>
+                    <p>The ultimate full-body strength builder. Engages legs, core, and back.</p>
+                </div>
+                <div class="exercise-card">
+                    <img src="{% static 'gym/images/resource/strength4.jpg' %}" alt="Bench Press">
+                    <h3>Bench Press 💪</h3>
+                    <p>Targets chest, shoulders, and triceps for upper body power.</p>
+                </div>
+                <div class="exercise-card">
+                    <img src="{% static 'gym/images/resource/strength5.jpg' %}" alt="Squats">
+                    <h3>Squats 🔄</h3>
+                    <p>Engages your legs and core, improving lower body strength.</p>
+                </div>
+                <div class="exercise-card">
+                    <img src="{% static 'gym/images/resource/strength6.jpg' %}" alt="Pull-ups">
+                    <h3>Pull-ups 🏆</h3>
+                    <p>Builds back and biceps while improving grip strength.</p>
+                </div>
+                <div class="exercise-card">
+                    <img src="{% static 'gym/images/resource/strength1.jpg' %}" alt="Shoulder Press">
+                    <h3>Shoulder Press 🏋️‍♂️</h3>
+                    <p>Strengthens shoulders, arms, and upper chest.</p>
+                </div>
+            </div>
+
+            <p>Start lifting today and feel the strength within you! 💯🔥</p>
+        </section>
+    </div> 
+
+    {% include 'gym/common_files/common_footer.html' %}
+</body>
+</html>

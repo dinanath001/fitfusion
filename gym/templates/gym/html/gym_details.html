@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Details</title>
+    
+    {% include 'gym/common_files/common_css.html' %}
+    <style>
+        .gym-details-container {
+            padding: 30px;
+        }
+
+        .gym-name {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .facility-card {
+            display: flex;
+            align-items: center;
+            background: #f4f4f4;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .facility-card img {
+            width: 180px;
+            height: 150px;
+            object-fit: cover;
+            border-right: 2px solid #ddd;
+        }
+
+        .facility-details {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .facility-details h4 {
+            margin: 0;
+            color: #333;
+        }
+
+        .facility-details p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="gym-details-container">
+        <div class="gym-name">{{ gym.gym_name }}</div>
+          
+        {% if equip_key %}
+            {% for facility in equip_key %}
+                <div class="facility-card">
+                    <img src="{{ facility.equipment_image.url }}" alt="{{ facility.equipment_name }}">
+                    <div class="facility-details">
+                        <h4>{{ facility.equipment_name }}</h4>
+                        <p>Target Area: {{ facility.body_part }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No facilities added yet for this gym.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

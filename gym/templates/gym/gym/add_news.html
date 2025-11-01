@@ -1,0 +1,52 @@
+{% extends "gym/gym/gym_base.html" %}
+
+{% block title %} Add Gym News {% endblock %}
+
+{% block style %}
+<style>
+    .news-form {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        background: #f8f9fa;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .news-form h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .news-form button {
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+ <!-- Success Messages -->
+ {% if messages %}
+ {% for m in messages %}
+ <div class="alert alert-success alert-dismissible fade show" role="alert">
+     <strong>{{ m }}</strong>
+     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+ </div>
+ {% endfor %}
+{% endif %}
+<div class="news-form">
+
+    <h2>Add Gym News</h2>
+    {% comment %} url-->is optional  {% endcomment %}
+    <form action="{% url 'add_news' %}" method="post" > 
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="news_title" class="form-label">News Title</label>
+            <input type="text" class="form-control" id="news_title" name="news_title" required>
+        </div>
+        <div class="mb-3">
+            <label for="news_description" class="form-label">News Description</label>
+            <textarea class="form-control" id="news_description" name="news_description" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

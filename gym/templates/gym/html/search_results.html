@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+     <link rel="stylesheet" href="{% static "gym/CSS/search_result.css" %}">
+    {% include 'gym/common_files/common_css.html' %}
+    
+</head>
+<body>
+    {% include 'gym/common_files/common_header1.html' %}
+
+<main class="search-main">
+<div class="search-results-wrapper">
+    <div class="container1">
+        <h2>🔍 Search Results for "<span style="color:#3498db">{{ query }}</span>"</h2>
+
+        {% if results %}
+            {% for category, items in results.items %}
+                <h4>{{ category|capfirst }}</h4>
+                <ul>
+                    {% for item in items %}
+                        <li class="search-item">
+                            {% if category == "news" %}
+                                📰 <strong>{{ item.news_title }}</strong> — {{ item.gym }}
+                            {% elif category == "event" %}
+                                📅 <strong>{{ item.event_name }}</strong> at {{ item.event_venue }} ({{ item.gym_id }})
+                            {% elif category == "gym" %}
+                                🏋️ <strong>{{ item.gym_name }}</strong>, {{ item.gym_city }} — {{ item.address }}
+                            {% elif category == "trainer" %}
+                                🧑‍🏫 Trainer: <strong>{{ item.name }}</strong>, Email: {{ item.email }} ({{ item.gym }})
+                            {% elif category == "nutrition" %}
+                                🥗 Plan: <strong>{{ item.plan_type }}</strong> — Meals: {{ item.meals|truncatewords:10 }}
+                            {% elif category == "feedback" %}
+                                💬 <strong>{{ item.name }}</strong>: "{{ item.feedback|truncatewords:15 }}" (Rating: {{ item.rating }})
+                            {% elif category == "member" %}
+                                👤 <strong>{{ item.name }}</strong>, {{ item.city }}, {{ item.state }} — {{ item.email }} — 📞 {{ item.phone }}
+                            {% else %}
+                                {{ item }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        {% else %}
+            <p>No results found for "<strong>{{ query }}</strong>". Try a different keyword.</p>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="btn">⬅ Back to Dashboard</a>
+    </div>
+</div> 
+</main>
+{%include 'gym/common_files/common_footer.html' %} 
+</body>
+</html>

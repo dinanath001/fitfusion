@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Videos</title>
+    {% include 'gym/common_files/common_css.html' %}
+
+    <style>
+        /* Container */
+        .flex-container1 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 5px;
+        }
+
+        /* Card Styling */
+        .card {
+            width: 20rem;
+            border-radius: 14px;
+            border: 1px solid #ccc;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: scale(1.09);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Video Styling */
+        .card video {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+        }
+
+        /* Card Content */
+        .card-body {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+            min-height: 130px; /* Ensuring uniform card height */
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            color: #444;
+            margin: 2px 0;
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        /* Footer Button */
+        .card-footer {
+            padding: 8px;
+            text-align: center;
+            background: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+
+        .btn-details {
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+            color: #fff;
+            background: #e63946;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        .btn-details:hover {
+            background: #c62839;
+        }
+
+        /* Fitness Banner */
+        .banner {
+            width: 100%;
+            margin-top: 80px;
+            height: auto;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card {
+                width: 95%;
+            }
+        }
+        .img{
+            top: 1px;
+            padding-top: 2px;
+            padding-bottom: 5px;
+            max-height:20rem;
+        }
+    </style>
+</head>
+{% include 'gym/common_files/common_header1.html' %}
+<body>
+<div class="main-body">
+   <!-- Fitness Banner -->
+   <img src="{% static 'gym/images/backg/fitness_banner.jpg' %}" alt="Stay Fit, Stay Strong" class="banner">
+ 
+   
+   <h1 style="color:#2c3e50; text-align:center; margin-bottom: 10px;">
+        🎥 Your Ultimate Workout Guide 💪
+    </h1>
+    <p style="text-align: center; font-size: 1.1rem; font-weight: bold; color: #2c3e50;">
+        🔥 Get stronger, fitter, and healthier! Watch our best workout videos and level up your fitness journey. 🚀
+    </p>
+
+    <div class="flex-container1">
+        {% for work in workout_key %}
+        <div class="card">
+            <video controls>
+                <source src="{{ work.get_video_source }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="card-body">
+                <h5 class="card-title">{{ work.title }}</h5> 
+                <p class="card-text"><strong>Description:</strong> {{ work.description }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn-details">Watch Full Video</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include 'gym/common_files/common_footer.html' %}
+</body>
+</html>

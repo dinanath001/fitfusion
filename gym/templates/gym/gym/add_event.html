@@ -1,0 +1,60 @@
+{% extends "gym/gym/gym_base.html" %}
+
+{% block title %} Add Gym Event {% endblock %}
+
+{% block style %}
+<style>
+    .event-form {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        background: #f8f9fa;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .event-form h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .event-form button {
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Success Messages -->
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="event-form">
+    <h2>Add Gym Event</h2>
+    <form action="{% url 'add_event' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="event_name" class="form-label">Event Name</label>
+            <input type="text" class="form-control" id="event_name" name="event_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="event_venue" class="form-label">Event Venue</label>
+            <input type="text" class="form-control" id="event_venue" name="event_venue" required>
+        </div>
+       
+        <div class="mb-3">
+            <label for="event_description" class="form-label">Event Description</label>
+            <textarea class="form-control" id="event_description" name="event_description" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="event_image" class="form-label">Event Image (Optional)</label>
+            <input type="file" class="form-control" id="event_image" name="event_image" accept="image/*">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

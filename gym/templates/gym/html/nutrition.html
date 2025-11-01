@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    {%load static%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Plans</title>
+    {% include 'gym/common_files/common_css.html' %}
+    <style>
+        .nutrition-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        .nutrition-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+        .nutrition-card h3 {
+            margin: 0;
+            color: #007bff;
+        }
+        .nutrition-card p {
+            margin: 5px 0;
+        }
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        .filter-section select {
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'gym/common_files/common_header1.html' %}
+
+    <div class="main-body">
+        <div class="nutrition-container">
+            <h2>Nutrition Plans</h2>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <label for="planFilter">Filter by Plan Type:</label>
+                <select id="planFilter" onchange="filterPlans()">
+                    <option value="all">All</option>
+                    <option value="weight_loss">Weight Loss</option>
+                    <option value="muscle_gain">Muscle Gain</option>
+                    <option value="maintenance">Maintenance</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+
+            <!-- Nutrition Plan List -->
+            <!-- Nutrition Plan List -->
+            <div id="nutritionList">
+                {% for plan in nutrition_key %}
+                <div class="nutrition-card" data-type="{{ plan.plan_type }}">
+                    <h3>{{ plan.get_plan_type_display }}</h3>
+                    <p><strong>Calories per Day:</strong> {{ plan.calories_per_day }} kcal</p>
+                    <p><strong>Meals:</strong> {{ plan.meals|linebreaks }}</p>
+            
+                {% if plan.gym %}
+                        <p><strong>Offered by:</strong> {{ plan.gym }}</p>
+                        <a href="{% url 'gym_locator_with_name' plan.gym.gym_name %}" class="view-details-btn">View Gym Details</a>
+                   {% else %}
+                       <p><strong>Offered by:</strong> {{ plan.gym.gym_name }}</p>
+                       <a href="{% url 'gym_locator' %}" class="view-details-btn">View Gyms</a>
+                  {% endif %}
+                </div>
+                {% empty %}  
+                <p>No nutrition plans available.</p>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+    {% include 'gym/common_files/common_footer.html' %}
+
+    <script src="{% static 'gym/JS/nutrition.js' %}"></script> <!-- External JavaScript for choosing nutrition plans--> 
+</body>
+</html>

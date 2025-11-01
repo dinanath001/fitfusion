@@ -1,0 +1,38 @@
+{% extends "gym/member/member_base.html" %}
+
+{% load static %}
+
+{% block title %}Book Trainer{%endblock%}
+
+{%block style%}
+
+{%endblock%}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Book a Trainer</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="trainerSelect">Select a Trainer:</label>
+            <select class="form-control" id="trainerSelect" name="trainer_id" required>
+                <option value="">-- Choose Trainer --</option>
+                {% for train in trainer %}
+                    <option value="{{ train.id }}">{{ train.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Send Booking Request</button>
+    </form>
+</div>
+{% endblock %}

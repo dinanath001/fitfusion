@@ -1,0 +1,121 @@
+<footer class="footer">
+    <div class="footer-container">
+        <h3 class="footer-title">FitFusion</h3>
+        <div class="social-links">
+            <a href="https://www.facebook.com/FitFusionOfficial" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/fitfusion_official" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/FitFusionHQ" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@FitFusionFitness" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p><a href="{% url 'contact' %}" class="contact-link">Contact Us</a></p>
+        <p>&copy; 2025 FitFusion</p>
+    </div>
+    
+    <div class="footer-bottom">
+        <small>Designed with Passion ❤️</small>
+    </div>
+</footer>
+
+<style>
+    /* Footer Styling */
+    .footer {
+        background: #1a1a1a;
+        color: white;
+        padding: 8px 0; /* Reduced padding */
+        text-align: center;
+        font-size: 0.75rem; /* Adjusted font size */
+        border-top: 2px solid rgba(51, 219, 191, 0.4);
+        border-radius: 12px 8px 0 0;
+        box-shadow: 0 -1px 8px rgba(134, 64, 18, 0.5);
+        width: 100%;
+    }
+
+    /* Animated Footer Title */
+    .footer-title {
+        margin-bottom: 5px; /* Reduced margin */
+        font-size: 1.3em; /* Adjusted font size */
+        font-weight: bold;
+        background: linear-gradient(135deg, #ff6600, #ff3300);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: glowEffect 1.4s infinite alternate ease-in-out;
+    }
+
+    @keyframes glowEffect {
+        0% { text-shadow: 0 0 3px rgba(255, 102, 0, 0.4); }
+        100% { text-shadow: 0 0 7px rgba(255, 102, 0, 0.8); }
+    }
+
+    /* Social Links */
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 8px; /* Reduced gap */
+        margin-bottom: 2px;
+    }
+
+    .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 25px; /* Smaller size */
+        height: 25px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: white;
+        font-size: 0.9em; /* Reduced icon size */
+        transition: all 0.3s ease-in-out;
+    }
+
+    .social-links a:hover {
+        background: linear-gradient(135deg, #3d2f25, #ff3300);
+        box-shadow: 0 0 6px rgba(255, 102, 0, 0.6);
+        transform: scale(1.05);
+    }
+
+    /* Contact Us */
+    .contact-link {
+        font-size: 1em;
+        font-weight: bold;
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 6px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .contact-link:hover {
+        background: linear-gradient(135deg, #352921, #706926);
+        color: white;
+        box-shadow: 0 0 7px rgba(255, 102, 0, 0.7);
+    }
+
+    /* Footer Links */
+    .footer a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer a:hover {
+        color: #ff6600;
+    }
+
+    /* Footer Text */
+    .footer p {
+        margin: 2px 0;
+        font-size: 0.65em; /* Slightly smaller text */
+        opacity: 0.8;
+    }
+
+    /* Footer Bottom */
+    .footer-bottom {
+        background: linear-gradient(135deg, #3c1040, #0ee2be);
+        font-size: 0.7rem;
+        padding: 2px 0;
+        margin-top: 5px; /* Reduced margin */
+        font-weight: bold;
+        color: white;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 0 4px rgba(51, 219, 191, 0.4);
+    }
+</style>
