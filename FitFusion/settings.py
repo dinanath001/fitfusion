@@ -36,9 +36,9 @@ LOCALE_PATHS = [
 SECRET_KEY = 'django-insecure-+(fs3tddy1f)okudjv&g@p!=36-t+@v#f#l0n%k3dehbam!d0w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.onrender.com']
 #ALLOWED_HOSTS = ['192.168.58.218', 'localhost', '127.0.0.1'] #for run on phone 
 
 
@@ -57,18 +57,17 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ add here
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
-    
-    # ✅ Register your custom middleware
     'gym.middleware.no_cache_middleware.NoCacheMiddleware',
-
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'FitFusion.urls'
 
